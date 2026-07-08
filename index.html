@@ -521,7 +521,7 @@ textarea.fi{resize:vertical;min-height:60px}
 // ═══════════════════════════════════════════
 const APP_VER='2.55';
 // ═══ CONFIGURATION CATÉGORIE — modifier ces 2 lignes pour décliner l'app (U6, U8, U10, U12, U14) ═══
-const APP_CAT='U10';              // catégorie : cochée automatiquement sur la feuille FLR + nom de fichier
+const APP_CAT='U08';              // catégorie : cochée automatiquement sur la feuille FLR + nom de fichier
 const APP_NAME='RCL '+APP_CAT+' Coaching'; // nom affiché dans le bandeau de l'app
 let S = { players:[], sessions:[], attendance:[], evaluations:[], coaches:[], coachAttendance:[], tasks:[] };
 let NID = { players:1, sessions:1, attendance:1, evaluations:1, coaches:1, coachAttendance:1 };
@@ -544,10 +544,10 @@ const WD_FR=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 const WD_EN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const MO_FR=['janvier','f\u00e9vrier','mars','avril','mai','juin','juillet','ao\u00fbt','septembre','octobre','novembre','d\u00e9cembre'];
 const MO_EN=['January','February','March','April','May','June','July','August','September','October','November','December'];
-let LANG='fr'; try{ LANG=localStorage.getItem('rcl_u10_lang')||'fr'; }catch(e){}
+let LANG='fr'; try{ LANG=localStorage.getItem('rcl_U08_lang')||'fr'; }catch(e){}
 function toggleLang(){
   LANG=LANG==='fr'?'en':'fr';
-  try{ localStorage.setItem('rcl_u10_lang',LANG); }catch(e){}
+  try{ localStorage.setItem('rcl_U08_lang',LANG); }catch(e){}
   document.getElementById('lang-btn').textContent=LANG==='fr'?'EN':'FR';
   updateHeaderDate();
   applyStaticI18n();
@@ -656,7 +656,7 @@ const I18N = {
   'newTournoi':'Nouveau tournoi',
   'editTournoi':'Modifier tournoi',
   'lblTournoiName':'Nom du tournoi',
-  'tournoiNamePh':'Ex: Tournoi de Noël U10',
+  'tournoiNamePh':'Ex: Tournoi de Noël U08',
   'rcl1':'1 équipe — RCL',
   'rcl2':'2 équipes — Blue / Red',
   'rcl3':'3 équipes — Blue / Red / Green',
@@ -870,7 +870,7 @@ const I18N = {
   'syncTapToSetup':'Synchro entre appareils — appuyer pour configurer',
   'chatTitle':'Chat coachs','chatHomeBtn':'Chat coachs','chatTopTitle':'Chat coachs','chatBack':'Accueil',
   'chatNeedFb':'Le chat nécessite la synchro Firebase active. Configure d&#39;abord la synchro (bouton en haut de l&#39;accueil).',
-  'chatSetupTitle':'Rejoindre le chat','chatNameLbl':'Ton nom (affiché)','chatNamePh':'Ex : Yannick','chatCodeLbl':'Code du chat','chatCodePh':'Ex : rcl-u10-chat','chatCodeHint':'Les coachs avec le même code discutent ensemble. Un code par équipe.',
+  'chatSetupTitle':'Rejoindre le chat','chatNameLbl':'Ton nom (affiché)','chatNamePh':'Ex : Yannick','chatCodeLbl':'Code du chat','chatCodePh':'Ex : rcl-U08-chat','chatCodeHint':'Les coachs avec le même code discutent ensemble. Un code par équipe.',
   'chatJoinBtn':'Rejoindre','chatLeave':'Quitter','chatEmpty':'Aucun message. Lance la discussion !','chatInputPh':'Écrire un message...',
   'chatNeedName':'Indique ton nom','chatNeedCode':'Indique le code du chat','chatSendErr':'⚠️ Envoi impossible','chatTapDelete':'Appuyer pour supprimer','chatConfirmDelete':'Supprimer ce message ?','chatDeleteErr':'⚠️ Suppression impossible','chatHomeHint':'Appuyer pour discuter avec les coachs','chatNoMsgYet':'Aucun message pour l&#39;instant','chatYou':'Toi',
   'flrGenerating':'⏳ Génération de la feuille FLR...',
@@ -992,7 +992,7 @@ const I18N = {
   'newTournoi':'New tournament',
   'editTournoi':'Edit tournament',
   'lblTournoiName':'Tournament name',
-  'tournoiNamePh':'E.g: U10 Christmas Tournament',
+  'tournoiNamePh':'E.g: U08 Christmas Tournament',
   'rcl1':'1 team — RCL',
   'rcl2':'2 teams — Blue / Red',
   'rcl3':'3 teams — Blue / Red / Green',
@@ -1209,7 +1209,7 @@ const I18N = {
   'syncTapToSetup':'Cross-device sync — tap to set up',
   'chatTitle':'Coaches chat','chatHomeBtn':'Coaches chat','chatTopTitle':'Coaches chat','chatBack':'Home',
   'chatNeedFb':'Chat requires active Firebase sync. Set up sync first (button at top of home).',
-  'chatSetupTitle':'Join the chat','chatNameLbl':'Your name (shown)','chatNamePh':'e.g. Yannick','chatCodeLbl':'Chat code','chatCodePh':'e.g. rcl-u10-chat','chatCodeHint':'Coaches with the same code chat together. One code per team.',
+  'chatSetupTitle':'Join the chat','chatNameLbl':'Your name (shown)','chatNamePh':'e.g. Yannick','chatCodeLbl':'Chat code','chatCodePh':'e.g. rcl-U08-chat','chatCodeHint':'Coaches with the same code chat together. One code per team.',
   'chatJoinBtn':'Join','chatLeave':'Leave','chatEmpty':'No messages yet. Start the conversation!','chatInputPh':'Write a message...',
   'chatNeedName':'Enter your name','chatNeedCode':'Enter the chat code','chatSendErr':'⚠️ Could not send','chatTapDelete':'Tap to delete','chatConfirmDelete':'Delete this message?','chatDeleteErr':'⚠️ Could not delete','chatHomeHint':'Tap to chat with coaches','chatNoMsgYet':'No messages yet','chatYou':'You',
   'flrGenerating':'⏳ Generating FLR sheet...',
@@ -1280,10 +1280,10 @@ function applyStaticI18n(){
 // ═══════════════════════════════════════════
 // STORAGE
 // ═══════════════════════════════════════════
-function save(){ try{ localStorage.setItem('rcl_u10v2', JSON.stringify({S,NID})); }catch(e){} fbSchedulePush(); }
+function save(){ try{ localStorage.setItem('rcl_U08v2', JSON.stringify({S,NID})); }catch(e){} fbSchedulePush(); }
 function load(){
   try {
-    const d = JSON.parse(localStorage.getItem('rcl_u10v2')||localStorage.getItem('rcl_u10')||'null');
+    const d = JSON.parse(localStorage.getItem('rcl_U08v2')||localStorage.getItem('rcl_U08')||'null');
     if(d){ S=d.S||d.state||{players:[],sessions:[],attendance:[],evaluations:[]}; NID=d.NID||{players:1,sessions:1,attendance:1,evaluations:1}; }
   } catch(e){}
   // Migration coachs (données antérieures)
@@ -3096,7 +3096,7 @@ function printMatchSheet(sid){
   const {s,players,coaches}=d;
   document.getElementById('print-sheet').innerHTML=
     '<div class="ps-hdr">'+(sheetLogo()?'<img src="'+sheetLogo()+'">':'')+
-      '<div><div class="ps-title">RCL U10 \u2014 '+tr('sheetMatchTitle')+'</div>'+
+      '<div><div class="ps-title">RCL U08 \u2014 '+tr('sheetMatchTitle')+'</div>'+
       '<div class="ps-sub">RCL '+tr('vsLbl')+' '+esc(s.opponent||'?')+(s.venue?' \u2014 '+venueLabel(s.venue):'')+'</div>'+
       '<div class="ps-sub">'+fdFull(s.date)+'</div></div></div>'+
     sheetInfoBar(s, true)+
@@ -3111,7 +3111,7 @@ function printTournoiSheet(sid){
   const {s,teams}=d;
   document.getElementById('print-sheet').innerHTML=
     '<div class="ps-hdr">'+(sheetLogo()?'<img src="'+sheetLogo()+'">':'')+
-      '<div><div class="ps-title">RCL U10 \u2014 '+tr('sheetTournoiTitle')+'</div>'+
+      '<div><div class="ps-title">RCL U08 \u2014 '+tr('sheetTournoiTitle')+'</div>'+
       '<div class="ps-sub">'+esc(s.name||tr('type_Tournoi'))+'</div>'+
       '<div class="ps-sub">'+fdFull(s.date)+'</div></div></div>'+
     sheetInfoBar(s, true)+
@@ -3131,7 +3131,7 @@ function copySheetTxt(txt){
 function copyMatchSheetText(sid){
   const d=matchSheetData(sid); if(!d) return;
   const {s,players,coaches}=d;
-  let txt='\u{1F3C9} RCL U10 \u2014 Match '+tr('vsLbl')+' '+(s.opponent||'?')+'\n';
+  let txt='\u{1F3C9} RCL U08 \u2014 Match '+tr('vsLbl')+' '+(s.opponent||'?')+'\n';
   txt+='\u{1F4C5} '+fdFull(s.date)+(s.venue?' \u2014 '+venueLabel(s.venue):'')+'\n';
   if(coaches.length) txt+='\u{1F4E3} '+tr('sheetCoaches')+' : '+coaches.map(co=>co.name+(co.phone?' ('+co.phone+')':'')).join(', ')+'\n';
   txt+='\u{1F465} '+tr('sheetCalledUp')+' ('+players.length+') :\n';
@@ -3390,7 +3390,7 @@ function fdShort(d){ if(!d)return''; const p=d.split('-'); return p.length===3?p
 function copyTournoiSheetText(sid){
   const d=tournoiSheetData(sid); if(!d) return;
   const {s,teams}=d;
-  let txt='\u{1F3C6} RCL U10 \u2014 '+(s.name||tr('type_Tournoi'))+'\n';
+  let txt='\u{1F3C6} RCL U08 \u2014 '+(s.name||tr('type_Tournoi'))+'\n';
   txt+='\u{1F4C5} '+fdFull(s.date)+'\n\n';
   teams.forEach(t=>{
     txt+='\u25AA\uFE0F '+t.team+'\n';
@@ -3901,7 +3901,7 @@ function fbApplyCore(snap){
   if(!NID.tasks) NID.tasks=1;
   S.tasks.forEach(t=>{ if(t.id===null||t.id===undefined||(typeof t.id==='number'&&isNaN(t.id))){ t.id=NID.tasks++; } });
   (S.players||[]).forEach(p=>{ p.photo=_fb.photos[p.id]||localPhotos[p.id]||p.photo||null; });
-  try{ localStorage.setItem('rcl_u10v2', JSON.stringify({S,NID})); }catch(e){}
+  try{ localStorage.setItem('rcl_U08v2', JSON.stringify({S,NID})); }catch(e){}
   fbSetStatus('online');
   softRefresh();
 }
@@ -3913,7 +3913,7 @@ function fbApplyPhotos(snap){
   let changed=false;
   (S.players||[]).forEach(p=>{ const ph=_fb.photos[p.id]; if(ph&&p.photo!==ph){ p.photo=ph; changed=true; } });
   if(changed){
-    try{ localStorage.setItem('rcl_u10v2', JSON.stringify({S,NID})); }catch(e){}
+    try{ localStorage.setItem('rcl_U08v2', JSON.stringify({S,NID})); }catch(e){}
     softRefresh();
   }
 }
@@ -4062,12 +4062,12 @@ function rSyncOv(){
     '<div style="text-align:center;font-size:10px;color:var(--mut);margin-top:14px">'+APP_NAME+' \u2014 v'+APP_VER+'</div>';
 }
 function exportData(){
-  const payload={S,NID,exportedAt:new Date().toISOString(),version:1,app:'RCL_U10'};
+  const payload={S,NID,exportedAt:new Date().toISOString(),version:1,app:'RCL_U08'};
   const json=JSON.stringify(payload);
   const blob=new Blob([json],{type:'application/json'});
   const url=URL.createObjectURL(blob),a=document.createElement('a');
   const ts=today()+'_'+String(new Date().getHours()).padStart(2,'0')+String(new Date().getMinutes()).padStart(2,'0');
-  a.href=url;a.download='RCL_U10_sync_'+ts+'.json';a.click();URL.revokeObjectURL(url);
+  a.href=url;a.download='RCL_U08_sync_'+ts+'.json';a.click();URL.revokeObjectURL(url);
   S.lastSync={type:'export',at:new Date().toISOString()};
   save();
   toast(tr('toastDataExported'));
@@ -4473,15 +4473,15 @@ function expCSV(type){
   if(type==='players'){
     let csv=(EN?'Jersey;First name;Last name;DOB;License;Position;Parent;Phone;Email;Notes\n':'Maillot;Pr\u00e9nom;Nom;DDN;Licence;Poste;Parent;T\u00e9l;Email;Notes\n');
     csv+=S.players.map(p=>[p.number,p.firstName,p.lastName,p.dob,p.licenseNo,p.position?posLabel(p.position):'',p.parent,p.phone,p.email,p.notes].map(v=>'"'+(v||'')+'"').join(';')).join('\n');
-    dl(csv,'RCL_U10_'+(EN?'Roster':'Effectif'));
+    dl(csv,'RCL_U08_'+(EN?'Roster':'Effectif'));
   } else if(type==='coaches'){
     let csv=(EN?'First name;Last name;Role;Phone;Email;License\n':'Pr\u00e9nom;Nom;R\u00f4le;T\u00e9l;Email;Licence\n');
     csv+=S.coaches.map(co=>[co.firstName,co.lastName,co.role?tr('role_'+co.role):'',co.phone,co.email,co.licenseNo].map(v=>'"'+(v||'')+'"').join(';')).join('\n');
-    dl(csv,'RCL_U10_'+(EN?'Staff':'Coachs'));
+    dl(csv,'RCL_U08_'+(EN?'Staff':'Coachs'));
   } else if(type==='training'){
     let csv=(EN?'Date;Day;Theme;Skills;Rules;Positives;Improvements;Notes\n':'Date;Jour;Th\u00e8me;Skills;R\u00e8gles;Positifs;Am\u00e9liorations;Notes\n');
     csv+=S.sessions.filter(s=>s.type==='Entra\u00eenement').sort((a,b)=>a.date.localeCompare(b.date)).map(s=>[s.date,wdOnly(s.date),s.theme,s.skills,s.rules,s.positives,s.improvements,s.notes].map(v=>'"'+(v||'')+'"').join(';')).join('\n');
-    dl(csv,'RCL_U10_'+(EN?'Training':'Entrainements'));
+    dl(csv,'RCL_U08_'+(EN?'Training':'Entrainements'));
   } else if(type==='matches'){
     let csv=(EN?'Date;Opponent;Venue;RCL Score;Opp Score;Player;No;Role;Play time (s);Play time (mm:ss);Nb subs\n':'Date;Adversaire;Lieu;Score RCL;Score Adv;Joueur;N\u00b0;R\u00f4le;Temps jeu (s);Temps jeu (mm:ss);Nb remplacements\n');
     const rows=[];
@@ -4494,23 +4494,23 @@ function expCSV(type){
         rows.push([s.date,s.opponent,s.venue?venueLabel(s.venue):'',s.scoreRCL,s.scoreAdv,p.firstName+' '+p.lastName,p.number,sp.role,pt,fmtT(pt),(s.subs||[]).filter(sb=>sb.outId===sp.pid||sb.inId===sp.pid).length].map(v=>'"'+(v===undefined?'':v)+'"').join(';'));
       });
     });
-    dl(csv+rows.join('\n'),'RCL_U10_'+(EN?'Matches':'Matchs'));
+    dl(csv+rows.join('\n'),'RCL_U08_'+(EN?'Matches':'Matchs'));
   } else if(type==='tournaments'){
     let csv=(EN?'Tournament;Date;Team A;Team B;Score A;Score B;Played\n':'Tournoi;Date;Equipe A;Equipe B;Score A;Score B;Joue\n');
     S.sessions.filter(s=>s.type==='Tournoi').sort((a,b)=>a.date.localeCompare(b.date)).forEach(s=>{
       (s.matches||[]).forEach(m=>{csv+=[s.name,s.date,m.home,m.away,m.hs,m.as,m.played?(EN?'Yes':'Oui'):(EN?'No':'Non')].map(v=>'"'+(v||'')+'"').join(';')+'\n';});
     });
-    dl(csv,'RCL_U10_'+(EN?'Tournaments':'Tournois'));
+    dl(csv,'RCL_U08_'+(EN?'Tournaments':'Tournois'));
   } else if(type==='attendance'){
     let csv=(EN?'Date;Type;First name;Last name;Status\n':'Date;Type;Pr\u00e9nom;Nom;Statut\n');
     csv+=S.attendance.map(a=>{const s=S.sessions.find(x=>x.id===a.sessionId)||{},p=S.players.find(x=>x.id===a.playerId)||{};return[s.date,s.type?typeLabel(s.type):'',p.firstName,p.lastName,statusLabel(a.status)].map(v=>'"'+(v||'')+'"').join(';');}).join('\n');
-    dl(csv,'RCL_U10_'+(EN?'Attendance':'Presences'));
+    dl(csv,'RCL_U08_'+(EN?'Attendance':'Presences'));
   } else if(type==='evaluations'){
     let csv=(EN?'Date;First name;Last name;':'Date;Pr\u00e9nom;Nom;')+CRIT.map(c=>critLabel(c.k)).join(';')+(EN?';Average;Comment\n':';Moyenne;Commentaire\n');
     csv+=S.evaluations.map(e=>{const s=S.sessions.find(x=>x.id===e.sessionId)||{},p=S.players.find(x=>x.id===e.playerId)||{};
       const avgV=avg(e); const avgLbl=avgV!=='\u2013'?lvlLabel(Math.round(parseFloat(avgV))):'';
       return[s.date,p.firstName,p.lastName,...CRIT.map(c=>e[c.k]?lvlLabel(e[c.k]):''),avgLbl,e.comment].map(v=>'"'+(v||'')+'"').join(';');}).join('\n');
-    dl(csv,'RCL_U10_'+(EN?'Progress':'Suivi'));
+    dl(csv,'RCL_U08_'+(EN?'Progress':'Suivi'));
   }
 }
 // ═══════════════════════════════════════════
