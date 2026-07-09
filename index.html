@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title id="app-title">RCL U08 Coaching</title>
+<title id="app-title">RCL U10 Coaching</title>
 <style>
 :root{--dk:#004A7C;--mg:#005B96;--lg:#D9EAF5;--gd:#4D9FCC;--gd2:#B8DCF0;--bg:#F2F7FB;--card:#fff;--text:#0F2A40;--mut:#587791;--brd:#D5E4EF;--red:#EE2837;--ora:#F97316;--lim:#84CC16;--grn:#22C55E;--blu:#3B82F6;--gry:#9CA3AF;--r:12px;--sh:0 2px 8px rgba(0,74,124,.10)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -386,6 +386,8 @@ textarea.fi{resize:vertical;min-height:60px}
 .an-gs-notstarted{background:#EEF1F4;color:var(--mut)}
 .an-gs-inprogress{background:#FFF3E0;color:#E8A33D}
 .an-gs-done{background:#E8F5E9;color:#3DA35D}
+.poll-btn{border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:800;color:#fff;cursor:pointer;width:100%;-webkit-tap-highlight-color:transparent}
+.poll-btn:active{opacity:.85}
 </style>
 </head>
 <body>
@@ -497,6 +499,14 @@ textarea.fi{resize:vertical;min-height:60px}
   <div id="tasks-body" style="flex:1;overflow-y:auto;padding:14px"></div>
 </div>
 
+<!-- POLL SHARE MODAL -->
+<div id="poll-share-ov" class="cfm-ov">
+  <div style="background:var(--card);border-radius:16px;padding:18px;max-width:400px;width:100%;max-height:80vh;overflow-y:auto">
+    <div class="card-title" id="poll-share-title">Sondage de présence</div>
+    <div id="poll-share-body"></div>
+  </div>
+</div>
+
 <!-- ANALYSE OVERLAY -->
 <div id="analyse-ov" class="chat-ov">
   <div class="chat-topbar">
@@ -566,10 +576,18 @@ textarea.fi{resize:vertical;min-height:60px}
 // ═══════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════
-const APP_VER='2.63';
+const APP_VER='2.66';
 // ═══ CONFIGURATION CATÉGORIE — modifier ces 2 lignes pour décliner l'app (U6, U8, U10, U12, U14) ═══
 const APP_CAT='U08';              // catégorie : cochée automatiquement sur la feuille FLR + nom de fichier
 const APP_NAME='RCL '+APP_CAT+' Coaching'; // nom affiché dans le bandeau de l'app
+const POLL_FB_CFG = {
+  apiKey: "AIzaSyAalJZAZRhpmTAlJ5lNzTiA05TxbHuAgfo",
+  authDomain: "rcluxembourg-26-27.firebaseapp.com",
+  projectId: "rcluxembourg-26-27",
+  storageBucket: "rcluxembourg-26-27.firebasestorage.app",
+  messagingSenderId: "131221936812",
+  appId: "1:131221936812:web:73738f396fb8a730e59d09"
+};
 let S = { players:[], sessions:[], attendance:[], evaluations:[], coaches:[], coachAttendance:[], tasks:[], goals:[] };
 let NID = { players:1, sessions:1, attendance:1, evaluations:1, coaches:1, coachAttendance:1 };
 let _curSType = 'Entra\u00eenement';
@@ -646,6 +664,7 @@ const I18N = {
   'lastName':'Nom',
   'dob':'Date de naissance',
   'parentLbl':'Parent / Tuteur',
+  'parent2Lbl':'2e parent / Tuteur','phone2Lbl':'Téléphone 2','parent2Ph':'Nom du 2e parent (optionnel)',
   'phoneLbl':'Téléphone',
   'emailLbl':'Email',
   'notesLbl':'Notes',
@@ -928,6 +947,9 @@ const I18N = {
   'helpPrinciplesTitle':'Nos 4 principes de développement','helpEthicsTitle':'Suivre sans juger',
   'helpEthicsBody':'Le suivi est un outil pour orienter les entraînements, pas un bulletin de notes. C&#39;est une photo d&#39;un instant, qui varie selon la fatigue et l&#39;adversaire. On regarde d&#39;abord la tendance (progresse-t-il ?) plutôt que la note. Pas de classement, pas d&#39;étiquette. Chaque enfant a droit au même temps de jeu. En cas de doute, le regard du coach prime sur le chiffre.',
   'helpEthicsQuote':'« On évalue pour mieux accompagner, pas pour classer les enfants. »','helpBack':'Retour','helpTitle':'Guide du coach','helpCycleCredit':'Source : World Rugby',
+  'pollNeedSync':'Active la synchro Firebase pour utiliser les sondages','pollShareTitle':'Sondage de présence','pollShareIntro':'Partage ce lien avec les parents. Ils indiqueront si leur enfant sera présent.','pollShareWA':'Partager sur WhatsApp','pollCopyLink':'Copier le lien','pollLinkCopied':'Lien copié !','pollShareMsg':'Présence {event} — merci d\u2019indiquer si votre enfant sera là :','pollShareBtn':'Sondage présence',
+  'btnClose':'Fermer',
+  'pollLoading':'Chargement…','pollNotFound':'Sondage introuvable ou expiré','pollError':'Une erreur est survenue','pollPickChild':'Choisis ton enfant','pollChooseChild':'— Sélectionne —','pollAlreadyIn':'déjà inscrits','pollPresent':'Présent','pollAbsent':'Absent','pollInjured':'Blessé','pollResults':'Qui vient ?','pollThanks':'Merci, réponse enregistrée !','pollYourAnswer':'Ta réponse :','pollIntentionsTitle':'Réponses des parents','pollApplyBtn':'Pré-remplir les présences','pollApplyHint':'Applique les réponses des parents comme point de départ. Confirme chaque présence le jour J.','pollApplyConfirm':'Pré-remplir les présences avec les réponses des parents ?','pollApplied':'✅ Présences pré-remplies',
   'anTabTeam':'Équipe','anTabPlayer':'Par joueur','anTabGoals':'Objectifs','anTabGuide':'Guide','anHomeBtn':'Analyse & progression','anHomeHint':'Suivi de la progression du groupe','anHomeAttendance':'présence','anHomeEvals':'suivis',
   'princ_recup':'Récupération & pression','princ_avancer':'Avancer & soutien','princ_lecture':'Lecture du jeu & discipline','princ_rythme':'Rythme & continuité',
   'anAttendanceTitle':'Assiduité','anPrinciplesTitle':'Principes de jeu','anPlayingTimeTitle':'Temps de jeu cumulé',
@@ -996,6 +1018,7 @@ const I18N = {
   'lastName':'Last name',
   'dob':'Date of birth',
   'parentLbl':'Parent / Guardian',
+  'parent2Lbl':'2nd parent / Guardian','phone2Lbl':'Phone 2','parent2Ph':'2nd parent name (optional)',
   'phoneLbl':'Phone',
   'emailLbl':'Email',
   'notesLbl':'Notes',
@@ -1281,6 +1304,9 @@ const I18N = {
   'helpPrinciplesTitle':'Our 4 development principles','helpEthicsTitle':'Track without judging',
   'helpEthicsBody':'Tracking is a tool to guide training, not a report card. It&#39;s a snapshot of one moment, varying with fatigue and opponent. We look at the trend (is he progressing?) rather than the score. No rankings, no labels. Every child gets equal playing time. When in doubt, the coach&#39;s eye prevails over the number.',
   'helpEthicsQuote':'"We assess progress to coach better, never to rank children."','helpBack':'Back','helpTitle':'Coach guide','helpCycleCredit':'Source: World Rugby',
+  'pollNeedSync':'Enable Firebase sync to use polls','pollShareTitle':'Attendance poll','pollShareIntro':'Share this link with parents. They\u2019ll indicate if their child will attend.','pollShareWA':'Share on WhatsApp','pollCopyLink':'Copy link','pollLinkCopied':'Link copied!','pollShareMsg':'Attendance {event} — please tell us if your child will be there:','pollShareBtn':'Attendance poll',
+  'btnClose':'Close',
+  'pollLoading':'Loading…','pollNotFound':'Poll not found or expired','pollError':'An error occurred','pollPickChild':'Choose your child','pollChooseChild':'— Select —','pollAlreadyIn':'already in','pollPresent':'Present','pollAbsent':'Absent','pollInjured':'Injured','pollResults':'Who\u2019s coming?','pollThanks':'Thanks, response saved!','pollYourAnswer':'Your answer:','pollIntentionsTitle':'Parent responses','pollApplyBtn':'Pre-fill attendance','pollApplyHint':'Applies parent responses as a starting point. Confirm each attendance on match day.','pollApplyConfirm':'Pre-fill attendance with parent responses?','pollApplied':'✅ Attendance pre-filled',
   'anTabTeam':'Team','anTabPlayer':'Per player','anTabGoals':'Goals','anTabGuide':'Guide','anHomeBtn':'Analysis & progress','anHomeHint':'Track the group’s progress','anHomeAttendance':'attendance','anHomeEvals':'tracked',
   'princ_recup':'Recovery & pressure','princ_avancer':'Advance & support','princ_lecture':'Game reading & discipline','princ_rythme':'Tempo & continuity',
   'anAttendanceTitle':'Attendance','anPrinciplesTitle':'Game principles','anPlayingTimeTitle':'Cumulative playing time',
@@ -2173,6 +2199,225 @@ function rAnalyseGuide(){
   body.innerHTML=html;
 }
 
+// ═══════════════════════════════════════════
+// SONDAGE DE PRÉSENCE — parents répondent via lien, réponses dans l'app
+// Réponses = intentions (pré-remplissage), le coach confirme le jour J
+// ═══════════════════════════════════════════
+const POLL_STATUS=['present','absent','injured']; // réponses possibles côté parent
+
+// Détecte si on est en mode "page parent" (URL avec ?poll=CODE&s=SESSIONID)
+function pollMode(){
+  const q=new URLSearchParams(location.search);
+  const code=q.get('poll'), sid=q.get('s');
+  if(code && sid) return {code, sid:parseInt(sid)};
+  return null;
+}
+
+// Génère le lien de sondage à partager (basé sur l'URL actuelle de l'app)
+function pollShareLink(sid){
+  if(!_fb.code) return null;
+  const base=location.origin+location.pathname;
+  return base+'?poll='+encodeURIComponent(_fb.code)+'&s='+sid;
+}
+
+// ═══ CÔTÉ COACH : créer / partager / lire le sondage ═══
+async function openPollShare(sid){
+  if(!_fb.cfg || !_fb.code){ toast(tr('pollNeedSync')); return; }
+  const link=pollShareLink(sid);
+  if(!link){ toast(tr('pollNeedSync')); return; }
+  const s=S.sessions.find(x=>x.id===sid);
+  const label=s?sessionTitle(s):'';
+  // Message pré-rempli pour WhatsApp/partage
+  const msg=tr('pollShareMsg').replace('{event}',label)+' '+link;
+  const box=document.getElementById('poll-share-body');
+  if(box){
+    box.innerHTML=
+      '<div style="font-size:13px;color:var(--text);margin-bottom:12px;line-height:1.5">'+tr('pollShareIntro')+'</div>'+
+      '<div style="background:var(--bg);border:1px solid var(--brd);border-radius:8px;padding:10px;font-size:12px;color:var(--mut);word-break:break-all;margin-bottom:12px">'+esc(link)+'</div>'+
+      '<button class="btn btn-mg btn-w" style="margin-bottom:8px" onclick="pollShareWhatsApp(\''+encodeURIComponent(msg)+'\')">\u{1F4AC} '+tr('pollShareWA')+'</button>'+
+      '<button class="btn btn-out btn-w" style="margin-bottom:8px" onclick="pollCopyLink(\''+encodeURIComponent(link)+'\')">\u{1F517} '+tr('pollCopyLink')+'</button>'+
+      '<button class="btn btn-out btn-w" onclick="closePollShare()">'+tr('btnClose')+'</button>';
+  }
+  const ov=document.getElementById('poll-share-ov');
+  if(ov) ov.classList.add('open');
+}
+function closePollShare(){ const ov=document.getElementById('poll-share-ov'); if(ov) ov.classList.remove('open'); }
+function pollShareWhatsApp(encodedMsg){
+  window.open('https://wa.me/?text='+encodedMsg, '_blank');
+}
+function pollCopyLink(encodedLink){
+  const link=decodeURIComponent(encodedLink);
+  if(navigator.clipboard){ navigator.clipboard.writeText(link).then(()=>toast(tr('pollLinkCopied'))); }
+  else toast(link);
+}
+
+// Charge les réponses du sondage pour une séance (temps réel) — côté coach
+async function pollLoadResponses(sid, cb){
+  if(!_fb.cfg || !_fb.code) return;
+  try{
+    if(!_fb.sdk){
+      const V='10.12.2';
+      const appMod=await import('https://www.gstatic.com/firebasejs/'+V+'/firebase-app.js');
+      const fsMod=await import('https://www.gstatic.com/firebasejs/'+V+'/firebase-firestore.js');
+      _fb.sdk={appMod,fsMod};
+    }
+    const {appMod,fsMod}=_fb.sdk;
+    if(!_fb.app){ _fb.app=appMod.initializeApp(_fb.cfg); _fb.db=fsMod.getFirestore(_fb.app); }
+    const col=fsMod.collection(_fb.db,'polls',_fb.code,'s'+sid);
+    const snap=await fsMod.getDocs(col);
+    const responses={};
+    snap.forEach(d=>{ const x=d.data(); responses[d.id]={status:x.status, ts:x.ts}; });
+    cb(responses);
+  }catch(e){ console.error('Poll load failed',e); cb({}); }
+}
+
+// ═══ CÔTÉ PARENT : afficher et enregistrer une réponse ═══
+async function pollRenderParentPage(ctx){
+  LANG='en'; // Sondage en anglais par défaut (bouton FR/EN disponible)
+  document.body.innerHTML='<div id="poll-parent-root" style="max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg)"></div>';
+  const root=document.getElementById('poll-parent-root');
+  root.innerHTML='<div style="padding:40px 20px;text-align:center;color:var(--mut)">'+tr('pollLoading')+'</div>';
+
+  // Charger la config Firebase depuis l'URL code (le parent n'a pas la config locale)
+  // On utilise la config publique Firebase (même projet), le code club vient de l'URL
+  if(!_fb.cfg){
+    // Le parent doit avoir la config : on l'inclut en dur (projet public, règles limitées)
+    _fb.cfg=POLL_FB_CFG; _fb.code=ctx.code;
+  }
+  try{
+    if(!_fb.sdk){
+      const V='10.12.2';
+      const appMod=await import('https://www.gstatic.com/firebasejs/'+V+'/firebase-app.js');
+      const fsMod=await import('https://www.gstatic.com/firebasejs/'+V+'/firebase-firestore.js');
+      _fb.sdk={appMod,fsMod};
+    }
+    const {appMod,fsMod}=_fb.sdk;
+    if(!_fb.app){ _fb.app=appMod.initializeApp(_fb.cfg); _fb.db=fsMod.getFirestore(_fb.app); }
+    // Charger les données du club (pour la liste des joueurs + info séance)
+    const coreRef=fsMod.doc(_fb.db,'clubs',ctx.code,'data','core');
+    const coreSnap=await fsMod.getDoc(coreRef);
+    if(!coreSnap.exists()){ root.innerHTML='<div style="padding:40px 20px;text-align:center;color:var(--red)">'+tr('pollNotFound')+'</div>'; return; }
+    const data=coreSnap.data();
+    const clubS=data.S||{};
+    const session=(clubS.sessions||[]).find(x=>x.id===ctx.sid);
+    if(!session){ root.innerHTML='<div style="padding:40px 20px;text-align:center;color:var(--red)">'+tr('pollNotFound')+'</div>'; return; }
+    _pollCtx={ctx, players:(clubS.players||[]).slice().sort((a,b)=>(a.number||999)-(b.number||999)), session};
+    // Charger les réponses existantes
+    pollLoadResponses(ctx.sid, (responses)=>{ _pollCtx.responses=responses; pollDrawParent(); });
+  }catch(e){
+    console.error('Poll parent load failed',e);
+    root.innerHTML='<div style="padding:40px 20px;text-align:center;color:var(--red)">'+tr('pollError')+'</div>';
+  }
+}
+
+let _pollCtx=null;
+let _pollLastChild=null;
+
+function pollDrawParent(){
+  const root=document.getElementById('poll-parent-root');
+  if(!root || !_pollCtx) return;
+  const {session, players, responses}=_pollCtx;
+  const counts={present:0, absent:0, injured:0};
+  Object.values(responses||{}).forEach(r=>{ if(counts[r.status]!==undefined) counts[r.status]++; });
+
+  let html='<div style="background:var(--dk);color:#fff;padding:20px 18px;text-align:center;position:relative">'+
+    '<button onclick="pollToggleLang()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer">'+(LANG==='en'?'FR':'EN')+'</button>'+
+    '<div style="font-size:20px;font-weight:800">'+esc(APP_NAME)+'</div>'+
+    '<div style="font-size:14px;opacity:.9;margin-top:4px">'+esc(sessionTitle(session))+'</div>'+
+    '<div style="font-size:13px;opacity:.8;margin-top:2px">'+fdFull(session.date)+'</div></div>';
+
+  // Encouragement + compteur
+  html+='<div style="padding:16px 18px">';
+  html+='<div style="background:var(--lg);border-radius:10px;padding:12px;text-align:center;margin-bottom:16px">'+
+    '<div style="font-size:26px;font-weight:800;color:var(--dk)">'+counts.present+'</div>'+
+    '<div style="font-size:12px;color:var(--mg);font-weight:600">'+tr('pollAlreadyIn')+'</div></div>';
+
+  // Sélection de l'enfant
+  html+='<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px">'+tr('pollPickChild')+'</div>';
+  html+='<select class="fs" id="poll-child" onchange="pollSelectChild()" style="margin-bottom:14px">'+
+    '<option value="">'+tr('pollChooseChild')+'</option>'+
+    players.map(p=>{
+      const r=responses[p.id];
+      const mark=r?(r.status==='present'?' \u2705':r.status==='absent'?' \u274C':' \u{1F915}'):'';
+      const selAttr=(_pollLastChild===p.id)?' selected':'';
+      return '<option value="'+p.id+'"'+selAttr+'>'+esc(p.firstName)+' '+esc((p.lastName||'')[0]||'')+'.'+mark+'</option>';
+    }).join('')+'</select>';
+
+  // Message de confirmation de la réponse actuelle (si l'enfant a déjà répondu)
+  if(_pollLastChild && responses[_pollLastChild]){
+    const cur=responses[_pollLastChild].status;
+    const curLbl=cur==='present'?'\u2705 '+tr('pollPresent'):cur==='absent'?'\u274C '+tr('pollAbsent'):'\u{1F915} '+tr('pollInjured');
+    html+='<div style="background:var(--lg);border-radius:8px;padding:10px;text-align:center;font-size:13px;font-weight:700;color:var(--dk);margin-bottom:14px">'+tr('pollYourAnswer')+' '+curLbl+'</div>';
+  }
+
+  // Boutons de réponse (cachés jusqu'à sélection)
+  html+='<div id="poll-answer" style="display:'+(_pollLastChild?'block':'none')+'">'+
+    '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">'+
+    '<button class="poll-btn" style="background:#22C55E" onclick="pollRespond(\'present\')">\u2705 '+tr('pollPresent')+'</button>'+
+    '<button class="poll-btn" style="background:#EE2837" onclick="pollRespond(\'absent\')">\u274C '+tr('pollAbsent')+'</button>'+
+    '<button class="poll-btn" style="background:#F59E0B" onclick="pollRespond(\'injured\')">\u{1F915} '+tr('pollInjured')+'</button>'+
+    '</div></div>';
+
+  // Résultats détaillés (lecture par les parents)
+  html+='<div style="border-top:1px solid var(--brd);padding-top:14px">'+
+    '<div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px">'+tr('pollResults')+'</div>'+
+    '<div style="display:flex;gap:8px;margin-bottom:14px">'+
+      '<div style="flex:1;text-align:center;background:#E8F5E9;border-radius:8px;padding:8px"><div style="font-size:20px;font-weight:800;color:#22C55E">'+counts.present+'</div><div style="font-size:10px;color:var(--mut)">'+tr('pollPresent')+'</div></div>'+
+      '<div style="flex:1;text-align:center;background:#FDECEA;border-radius:8px;padding:8px"><div style="font-size:20px;font-weight:800;color:#EE2837">'+counts.absent+'</div><div style="font-size:10px;color:var(--mut)">'+tr('pollAbsent')+'</div></div>'+
+      '<div style="flex:1;text-align:center;background:#FEF3E0;border-radius:8px;padding:8px"><div style="font-size:20px;font-weight:800;color:#F59E0B">'+counts.injured+'</div><div style="font-size:10px;color:var(--mut)">'+tr('pollInjured')+'</div></div>'+
+    '</div>';
+
+  // Liste des présents (prénom + initiale)
+  const presentPlayers=players.filter(p=>responses[p.id]&&responses[p.id].status==='present');
+  if(presentPlayers.length){
+    html+='<div style="font-size:12px;color:var(--mut);line-height:1.9">'+
+      presentPlayers.map(p=>'\u2705 '+esc(p.firstName)+' '+esc((p.lastName||'')[0]||'')+'.').join('<br>')+'</div>';
+  }
+  html+='</div>';
+
+  html+='<div style="text-align:center;font-size:10px;color:var(--mut);padding:20px 0">'+esc(APP_NAME)+'</div>';
+  html+='</div>';
+
+  root.innerHTML=html;
+}
+
+function pollSelectChild(){
+  const pid=document.getElementById('poll-child').value;
+  _pollLastChild=pid?parseInt(pid):null;
+  document.getElementById('poll-answer').style.display=pid?'block':'none';
+  // Redessiner pour montrer la réponse actuelle si déjà répondu
+  if(_pollLastChild) pollDrawParent();
+}
+
+async function pollRespond(status){
+  const pid=parseInt(document.getElementById('poll-child').value);
+  if(!pid || !_pollCtx) return;
+  try{
+    const {fsMod}=_fb.sdk;
+    await fsMod.setDoc(fsMod.doc(_fb.db,'polls',_pollCtx.ctx.code,'s'+_pollCtx.ctx.sid, String(pid)),
+      { status, ts:Date.now(), playerId:pid });
+    // Mettre à jour localement et redessiner pour voir l'effet immédiatement
+    if(!_pollCtx.responses) _pollCtx.responses={};
+    _pollCtx.responses[pid]={status, ts:Date.now()};
+    _pollLastChild=pid; // garder l'enfant sélectionné après redraw
+    toast(tr('pollThanks'));
+    pollDrawParent();
+  }catch(e){ console.error('Poll respond failed',e); toast(tr('pollError')); }
+}
+// Bascule FR/EN sur la page parent
+function pollToggleLang(){
+  LANG = LANG==='en' ? 'fr' : 'en';
+  pollDrawParent();
+}
+
+// Titre lisible d'une séance (réutilisé)
+function sessionTitle(s){
+  if(!s) return '';
+  if(s.type==='Match') return tr('type_Match')+(s.opponent?' '+tr('vsLbl')+' '+s.opponent:'');
+  if(s.type==='Tournoi') return s.name||tr('type_Tournoi');
+  return tr('type_'+s.type)||s.type;
+}
+
 function rHome(){
   rTodo();
   const tp=S.attendance.filter(a=>a.status==='P').length, te=S.attendance.length;
@@ -2289,11 +2534,11 @@ function saveC(eid){
   save();document.getElementById('pf-con').innerHTML='';rCoaches();
 }
 let _cfmYes=null;
-function confirmBox(msg,onYes){
+function confirmBox(msg,onYes,yesLabel){
   _cfmYes=onYes;
   document.getElementById('cfm-msg').textContent=msg;
   document.getElementById('cfm-no').textContent=tr('btnCancel');
-  document.getElementById('cfm-yes').textContent=tr('btnDelete');
+  document.getElementById('cfm-yes').textContent=yesLabel||tr('btnDelete');
   document.getElementById('cfm-ov').classList.add('open');
 }
 function cfmNo(){ _cfmYes=null; document.getElementById('cfm-ov').classList.remove('open'); }
@@ -2410,6 +2655,8 @@ function rPlayers(){
           (p.licenseNo?'<div>&#127380; '+tr('licenseLbl')+' '+esc(p.licenseNo)+'</div>':'')+
           (p.parent?'<div>&#128106; '+esc(p.parent)+'</div>':'')+
           (p.phone?'<div>&#128222; '+esc(p.phone)+'</div>':'')+
+          (p.parent2?'<div>&#128106; '+esc(p.parent2)+'</div>':'')+
+          (p.phone2?'<div>&#128222; '+esc(p.phone2)+'</div>':'')+
           (p.notes?'<div>&#128203; '+esc(p.notes)+'</div>':'')+'</div></div>';
   }).join('');
 }
@@ -2436,6 +2683,8 @@ function openPF(eid){
     '<div class="fg"><label class="fl">'+tr('parentLbl')+'</label><input class="fi" id="pf-par" value="'+esc(p?.parent||'')+'" placeholder="'+tr('parentPh')+'"></div>'+
     '<div class="frow"><div class="fg"><label class="fl">'+tr('phoneLbl')+'</label><input class="fi" id="pf-tel" value="'+esc(p?.phone||'')+'"></div>'+
     '<div class="fg"><label class="fl">'+tr('emailLbl')+'</label><input class="fi" id="pf-em" value="'+esc(p?.email||'')+'"></div></div>'+
+    '<div class="fg"><label class="fl">'+tr('parent2Lbl')+'</label><input class="fi" id="pf-par2" value="'+esc(p?.parent2||'')+'" placeholder="'+tr('parent2Ph')+'"></div>'+
+    '<div class="fg"><label class="fl">'+tr('phone2Lbl')+'</label><input class="fi" id="pf-tel2" value="'+esc(p?.phone2||'')+'"></div>'+
     '<div class="fg"><label class="fl">'+tr('notesLbl')+'</label><textarea class="fi" id="pf-no">'+esc(p?.notes||'')+'</textarea></div>'+
     '<div style="display:flex;gap:8px"><button class="btn btn-mg btn-w" onclick="saveP('+(eid||'null')+')">'+(p?tr('btnSave'):tr('btnAdd'))+'</button>'+
     '<button class="btn btn-out" onclick="closePF()">'+tr('btnCancel')+'</button></div></div>';
@@ -2449,6 +2698,7 @@ function saveP(eid){
   const d={firstName:fn,lastName:ln,number:parseInt(document.getElementById('pf-n').value)||null,
     position:document.getElementById('pf-po').value,dob:document.getElementById('pf-dob').value,
     parent:document.getElementById('pf-par').value.trim(),phone:document.getElementById('pf-tel').value.trim(),
+    parent2:document.getElementById('pf-par2').value.trim(),phone2:document.getElementById('pf-tel2').value.trim(),
     email:document.getElementById('pf-em').value.trim(),notes:document.getElementById('pf-no').value.trim(),
     licenseNo:document.getElementById('pf-lic').value.trim(),photo};
   if(eid){const i=S.players.findIndex(p=>p.id===eid);if(i>=0)S.players[i]={...S.players[i],...d};toast(tr('toastPlayerUpdated'));}
@@ -3349,6 +3599,11 @@ function isRCL(s,name){ return getRclTeams(s).includes(name); }
 // ═══════════════════════════════════════════
 // ATTENDANCE (unchanged)
 // ═══════════════════════════════════════════
+// Bloc sondage réutilisé dans les 3 types de séance (entraînement/match/tournoi)
+function pollBlockHtml(sid){
+  return '<button class="btn btn-out btn-w btn-sm" style="margin-top:8px" onclick="openPollShare('+sid+')">\u{1F4E3} '+tr('pollShareBtn')+'</button>'+
+    '<div id="poll-intentions-'+sid+'"></div>';
+}
 function rAtt(){
   const sid=parseInt(document.getElementById('att-sel').value);
   rSessList('att');
@@ -3386,7 +3641,8 @@ function rAtt(){
           '<div class="pnum-sm">'+(p.number||'?')+'</div>'+
           '<div class="att-nm">'+esc(p.firstName)+' '+esc(p.lastName)+'</div>'+
           '<div style="font-size:11px;font-weight:600">'+roleIcon+' '+roleLbl+ptLbl+'</div></div>';
-      }).join('')+'</div>'+rAttCoachInfo(s);
+      }).join('')+'</div>'+rAttCoachInfo(s)+pollBlockHtml(sid);
+    if(_fb.cfg && _fb.code) loadPollIntentions(sid);
     return;
   }
 
@@ -3421,7 +3677,8 @@ function rAtt(){
             '<span style="color:var(--mg)">&#9899;</span> '+matchCount+(totalRclM>0?'/'+totalRclM:'')+' '+tr('matchNbLbl')+
             (totalPt>0?' &bull; '+fmtT(totalPt):'')+
           '</div></div>';
-      }).join('')+'</div>'+rAttCoachInfo(s);
+      }).join('')+'</div>'+rAttCoachInfo(s)+pollBlockHtml(sid);
+    if(_fb.cfg && _fb.code) loadPollIntentions(sid);
     return;
   }
 
@@ -3434,6 +3691,7 @@ function rAtt(){
     '<div style="display:flex;flex-direction:column;gap:5px">'+
     '<button class="btn btn-mg btn-sm" onclick="markAll('+sid+',\'P\')">'+tr('btnAllPresent')+'</button>'+
     '<button class="btn btn-out btn-sm" onclick="markAll('+sid+',\'A\')">'+tr('btnAllAbsent')+'</button></div></div>'+
+    pollBlockHtml(sid)+
     rCoachAtt(sid)+
     '<div class="card" style="padding:10px 14px;margin-top:10px">'+
     pl.map(p=>{
@@ -3444,6 +3702,51 @@ function rAtt(){
           '<button class="sb'+(cur===st.c?' a'+st.c:'')+'" onclick="setSt('+sid+','+p.id+',\''+st.c+'\')" title="'+statusLabel(st.c)+'">'+statusShortLabel(st.c)+'</button>'
         ).join('')+'</div></div>';
     }).join('')+'</div>';
+  // Charger les intentions du sondage (asynchrone) et les afficher
+  if(_fb.cfg && _fb.code) loadPollIntentions(sid);
+}
+
+// Affiche les réponses parents (intentions) côté coach, avec pré-remplissage à confirmer
+function loadPollIntentions(sid){
+  pollLoadResponses(sid, (responses)=>{
+    const box=document.getElementById('poll-intentions-'+sid);
+    if(!box) return;
+    const keys=Object.keys(responses||{});
+    if(!keys.length){ box.innerHTML=''; return; }
+    const counts={present:0,absent:0,injured:0};
+    keys.forEach(k=>{ const st=responses[k].status; if(counts[st]!==undefined) counts[st]++; });
+    let html='<div class="card" style="padding:10px 14px;margin-top:10px;border-left:3px solid var(--mg)">'+
+      '<div style="font-size:12px;font-weight:800;color:var(--dk);margin-bottom:8px">\u{1F4E3} '+tr('pollIntentionsTitle')+' \u2014 '+
+      '<span style="color:#22C55E">'+counts.present+' \u2705</span> '+
+      '<span style="color:#EE2837">'+counts.absent+' \u274C</span> '+
+      '<span style="color:#F59E0B">'+counts.injured+' \u{1F915}</span></div>';
+    // Bouton pour appliquer toutes les intentions "présent" aux présences
+    html+='<button class="btn btn-mg btn-sm btn-w" onclick="applyPollIntentions('+sid+')">'+tr('pollApplyBtn')+'</button>';
+    html+='<div style="font-size:10.5px;color:var(--mut);margin-top:6px;font-style:italic">'+tr('pollApplyHint')+'</div>';
+    box.innerHTML=html;
+    _pollIntentionsCache=_pollIntentionsCache||{};
+    _pollIntentionsCache[sid]=responses;
+  });
+}
+
+let _pollIntentionsCache={};
+// Applique les intentions parents comme pré-remplissage des présences (à confirmer par le coach)
+function applyPollIntentions(sid){
+  const responses=_pollIntentionsCache[sid];
+  if(!responses) return;
+  const map={present:'P', absent:'A', injured:'B'};
+  confirmBox(tr('pollApplyConfirm'), ()=>{
+    Object.keys(responses).forEach(pid=>{
+      const st=map[responses[pid].status];
+      if(!st) return;
+      const pidN=parseInt(pid);
+      const i=S.attendance.findIndex(a=>a.sessionId===sid&&a.playerId===pidN);
+      if(i>=0) S.attendance[i].status=st;
+      else S.attendance.push({id:gid('attendance'),sessionId:sid,playerId:pidN,status:st,notes:''});
+    });
+    save(); rAtt();
+    toast(tr('pollApplied'));
+  }, tr('pollApplyBtn'));
 }
 function coachNames(ids){
   return (ids||[]).map(id=>{const co=S.coaches.find(x=>x.id===id);return co?esc(co.firstName)+' '+esc(co.lastName[0]||'')+'.':null;}).filter(Boolean);
@@ -4640,7 +4943,8 @@ function importParse(type, text){
         licenseNo:(r[4]||'').trim(),
         position:revLookup((r[5]||'').trim(), POSITIONS, 'pos_')||'',
         parent:(r[6]||'').trim(), phone:(r[7]||'').trim(),
-        email:(r[8]||'').trim(), notes:(r[9]||'').trim()
+        parent2:(r[8]||'').trim(), phone2:(r[9]||'').trim(),
+        email:(r[10]||'').trim(), notes:(r[11]||'').trim()
       });
     });
   } else if(type==='coaches'){
@@ -4896,8 +5200,8 @@ function applyImportLinked(){
 function expCSV(type){
   const EN=LANG==='en';
   if(type==='players'){
-    let csv=(EN?'Jersey;First name;Last name;DOB;License;Position;Parent;Phone;Email;Notes\n':'Maillot;Pr\u00e9nom;Nom;DDN;Licence;Poste;Parent;T\u00e9l;Email;Notes\n');
-    csv+=S.players.map(p=>[p.number,p.firstName,p.lastName,p.dob,p.licenseNo,p.position?posLabel(p.position):'',p.parent,p.phone,p.email,p.notes].map(v=>'"'+(v||'')+'"').join(';')).join('\n');
+    let csv=(EN?'Jersey;First name;Last name;DOB;License;Position;Parent;Phone;Parent 2;Phone 2;Email;Notes\n':'Maillot;Pr\u00e9nom;Nom;DDN;Licence;Poste;Parent;T\u00e9l;Parent 2;T\u00e9l 2;Email;Notes\n');
+    csv+=S.players.map(p=>[p.number,p.firstName,p.lastName,p.dob,p.licenseNo,p.position?posLabel(p.position):'',p.parent,p.phone,p.parent2,p.phone2,p.email,p.notes].map(v=>'"'+(v||'')+'"').join(';')).join('\n');
     dl(csv,'RCL_'+APP_CAT+'_'+(EN?'Roster':'Effectif'));
   } else if(type==='coaches'){
     let csv=(EN?'First name;Last name;Role;Phone;Email;License\n':'Pr\u00e9nom;Nom;R\u00f4le;T\u00e9l;Email;Licence\n');
@@ -4942,6 +5246,9 @@ function expCSV(type){
 // INIT
 // ═══════════════════════════════════════════
 window.addEventListener('DOMContentLoaded',()=>{
+  // Mode sondage parent : si l'URL contient ?poll=CODE&s=SID, afficher la page parent
+  const _pm=pollMode();
+  if(_pm){ pollRenderParentPage(_pm); return; }
   load();
   // Nom de l'app centralisé (bandeau + onglet navigateur)
   const _an=document.getElementById('app-name-hdr'); if(_an) _an.textContent=APP_NAME;
