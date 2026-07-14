@@ -12,7 +12,7 @@
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);max-width:500px;margin:0 auto;min-height:100vh}
 
 /* HEADER */
-header{position:fixed;top:0;left:0;right:0;max-width:500px;margin:0 auto;height:56px;background:var(--dk);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+header{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:500px;height:56px;background:var(--dk);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:1000;box-shadow:0 2px 12px rgba(0,0,0,.4)}
 .hdr-title{font-size:14px;font-weight:700;letter-spacing:.3px}
 .hdr-date{font-size:10px;color:rgba(255,255,255,.6);margin-top:2px}
 .hdr-export{background:var(--gd);color:var(--dk);border:none;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer}
@@ -160,8 +160,6 @@ nav{position:fixed;bottom:0;left:0;right:0;max-width:500px;margin:0 auto;height:
 textarea.fi{resize:vertical;min-height:60px}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
-.radopt{flex:1;padding:9px 4px;border-radius:10px;border:1.5px solid var(--brd);text-align:center;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--mut)}
-.radopt.sel{border-color:var(--dk);background:var(--dk);color:#fff}
 .pform{background:var(--lg);border-radius:var(--r);padding:14px;margin-bottom:12px;border:1.5px solid #A8D5B7}
 
 /* TOURNAMENT */
@@ -320,16 +318,14 @@ textarea.fi{resize:vertical;min-height:60px}
 .empty{text-align:center;padding:36px 20px;color:var(--mut)}
 .empty-ic{font-size:40px;margin-bottom:10px}
 
-.ss-bar{background:var(--card);border-radius:var(--r);padding:10px 14px;margin-bottom:12px;box-shadow:var(--sh)}
-.ss-bar label{font-size:11px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px}
 .tv-tabs{display:flex;gap:0;background:var(--brd);border-radius:10px;padding:3px;margin-bottom:12px}
 .tvt{flex:1;padding:8px;border:none;background:transparent;border-radius:8px;font-size:12px;font-weight:600;color:var(--mut);cursor:pointer}
 .tvt.active{background:var(--card);color:var(--dk)}
 
 .team-chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1.5px solid var(--brd);border-radius:20px;padding:5px 10px;font-size:12px;font-weight:600;margin:3px}
 .team-chip button{background:none;border:none;color:var(--mut);cursor:pointer;font-size:14px;line-height:1;padding:0}
-.chat-ov{position:fixed;top:0;left:0;right:0;bottom:64px;background:var(--bg);z-index:90;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column}
-.chat-ov.open{transform:translateX(0)}
+.chat-ov{position:fixed;top:56px;left:50%;transform:translateX(100vw);width:100%;max-width:500px;bottom:64px;background:var(--bg);z-index:90;transition:transform .25s;display:flex;flex-direction:column}
+.chat-ov.open{transform:translateX(-50%)}
 .chat-topbar{background:var(--mg);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;font-weight:700;font-size:15px;flex-shrink:0}
 .chat-back{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;width:32px}
 .chat-body-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden}
@@ -350,6 +346,7 @@ textarea.fi{resize:vertical;min-height:60px}
 .chat-emoji-item:active,.chat-emoji-item:hover{background:var(--lg)}
 .todo-col{margin-bottom:10px}
 .todo-col-hd{font-size:12px;font-weight:800;color:var(--dk);text-transform:uppercase;letter-spacing:.3px;margin:6px 0 5px;display:flex;align-items:center}
+.todo-coach-hd{font-size:12px;font-weight:700;color:var(--mg);margin:8px 0 4px 2px;padding-left:6px;border-left:3px solid var(--lg)}
 .todo-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px}
 .todo-item{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--brd);border-radius:9px;padding:7px 9px;margin-bottom:5px}
 .todo-item-main{flex:1;min-width:0}
@@ -385,7 +382,6 @@ textarea.fi{resize:vertical;min-height:60px}
 .an-goal-status{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:12px;flex-shrink:0;cursor:pointer;border:none}
 
 
-.an-gs-done{background:#E8F5E9;color:#3DA35D}
 .poll-btn{border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:800;color:#fff;cursor:pointer;width:100%;-webkit-tap-highlight-color:transparent}
 .poll-btn:active{opacity:.85}
 .welcome-ov{display:none;position:fixed;inset:0;z-index:500;background:linear-gradient(160deg,var(--dk),var(--mg));align-items:center;justify-content:center;padding:24px}
@@ -395,7 +391,7 @@ textarea.fi{resize:vertical;min-height:60px}
 .welcome-app{font-size:15px;font-weight:800;color:var(--mg);margin-bottom:18px;text-align:center}
 .welcome-h1{font-size:24px;font-weight:800;color:var(--dk);margin-bottom:6px}
 .welcome-p{font-size:14px;color:var(--mut);text-align:center;margin-bottom:8px}
-.chat-ov.res-css-fs{bottom:0;z-index:9999}
+.chat-ov.res-css-fs{top:0;bottom:0;z-index:9999}
 #resviewer-ov:fullscreen{background:var(--card)}
 #resviewer-ov:fullscreen #resviewer-body{height:calc(100vh - 52px)}
 </style>
@@ -545,7 +541,7 @@ textarea.fi{resize:vertical;min-height:60px}
   <div class="chat-topbar">
     <button class="chat-back" onclick="closeAnalyse()">&#8592; <span id="analyse-back-lbl">Accueil</span></button>
     <span>&#128202; <span id="analyse-topttl">Analyse</span></span>
-    <span style="width:32px"></span>
+    <button class="chat-back" onclick="openPivotAnalysis()" title="Tableau croisé" style="font-size:20px">&#128200;</button>
   </div>
   <div class="an-subtabs">
     <button class="an-subtab active" data-atab="team" onclick="setAnalyseTab('team')"><span id="an-tab-team-lbl">Équipe</span></button>
@@ -632,9 +628,9 @@ textarea.fi{resize:vertical;min-height:60px}
 // ═══════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════
-const APP_VER='2.89';
+const APP_VER='2.93';
 // ═══ CONFIGURATION CATÉGORIE — modifier ces 2 lignes pour décliner l'app (U6, U8, U10, U12, U14) ═══
-const APP_CAT='U08';              // catégorie : cochée automatiquement sur la feuille FLR + nom de fichier
+const APP_CAT='U10';              // catégorie : cochée automatiquement sur la feuille FLR + nom de fichier
 const APP_NAME='RCL '+APP_CAT+' Coaching'; // nom affiché dans le bandeau de l'app
 // Clés de stockage local spécifiques à la catégorie (évite que U08/U10 se mélangent sur un même appareil)
 const LS_DATA='rcl_'+APP_CAT+'_v2';
@@ -648,11 +644,11 @@ const POLL_FB_CFG = {
   projectId: "rcluxembourg-26-27",
   storageBucket: "rcluxembourg-26-27.firebasestorage.app",
   messagingSenderId: "131221936812",
-  appId: "1:131221936812:web:73738f396fb8a730e59d09"
+  appId: "1:131221936812:web:76d8d9dfb6eaf2bae59d09"
 };
 // ═══ PRÉ-CONFIGURATION (rempli par le générateur, sinon null) ═══
 // Si défini, l'app se connecte automatiquement et n'affiche qu'un écran "Entre ton nom + Connecter"
-const PRECONFIG = {"fb":{"apiKey":"AIzaSyAalJZAZRhpmTAlJ5lNzTiA05TxbHuAgfo","authDomain":"rcluxembourg-26-27.firebaseapp.com","projectId":"rcluxembourg-26-27","storageBucket":"rcluxembourg-26-27.firebasestorage.app","messagingSenderId":"131221936812","appId":"1:131221936812:web:73738f396fb8a730e59d09","measurementId":"G-2JXQEV91P4"},"club":"rcl-U08-2026","chatCode":"U08"}; /*PRECONFIG_INJECT*/
+const PRECONFIG = {"fb":{"apiKey":"AIzaSyAalJZAZRhpmTAlJ5lNzTiA05TxbHuAgfo","authDomain":"rcluxembourg-26-27.firebaseapp.com","projectId":"rcluxembourg-26-27","storageBucket":"rcluxembourg-26-27.firebasestorage.app","messagingSenderId":"131221936812","appId":"1:131221936812:web:76d8d9dfb6eaf2bae59d09","measurementId":"G-RY6RCEGXG6"},"club":"rcl-u10-2026","chatCode":"U10"}; /*PRECONFIG_INJECT*/
 let S = { players:[], sessions:[], attendance:[], evaluations:[], coaches:[], coachAttendance:[], tasks:[], goals:[], resources:[], mvpResults:[] };
 let NID = { players:1, sessions:1, attendance:1, evaluations:1, coaches:1, coachAttendance:1 };
 let _curSType = 'Entra\u00eenement';
@@ -668,7 +664,6 @@ const CRIT = [
   {k:'rules',l:'Respect des r\u00e8gles'},{k:'fairPlay',l:'Fair-play'}
 ];
 const POSITIONS = ['Pilier','Talonneur','3\u00e8me ligne','Demi m\u00eal\u00e9e','Demi ouverture','Ailier','Centre','Arri\u00e8re','Polyvalent'];
-const SLbls = {P:'Pr\u00e9sent',A:'Absent',B:'Bless\u00e9 / Malade'};
 const STATUS_BTNS=[{c:'P',l:'P'},{c:'A',l:'Abs'},{c:'B',l:'Bl'}];
 // Langue d'affichage des dates (FR / EN)
 const WD_FR=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
@@ -1019,7 +1014,7 @@ const I18N = {
   'voteTitle':'Joueur du match','voteShareMsg':'Vote pour le joueur du match {event} :','voteShareIntro':'Partage ce lien avec les joueurs. Chacun vote pour un coéquipier (pas pour lui-même) avec une explication.','voteWhoAreYou':'Qui es-tu ?','voteWhoHint':'Choisis ton prénom (tu ne pourras pas voter pour toi-même).','voteContinue':'Continuer','voteAs':'Tu votes en tant que','voteChange':'changer','voteForWho':'Pour qui votes-tu ?','voteWhy':'Pourquoi ?','voteWhyPh':'Ex : super défense et beau jeu en équipe','voteSubmit':'Voter','voteThanks':'Merci pour ton vote !','voteThanksSub':'Le résultat sera annoncé par le coach.','voteNeedVoter':'Choisis ton prénom','voteNeedChoice':'Choisis un joueur','voteNeedReason':'Explique ton choix','voteClosed':'Le vote est terminé. Merci !',
   'resTitle':'Ressources','resHomeBtn':'Ressources & documents','resHomeHint':'Règlements, docs du club, tournois','resCountSingular':'document','resCountPlural':'documents','resEmpty':'Aucun document pour l\u2019instant. Ajoute un lien vers un règlement, une doc du club, etc.','resAdd':'Ajouter un document','resNewTitle':'Nouveau document','resTitleLbl':'Titre','resTitlePh':'Ex : Règlement tournoi U10','resCatLbl':'Catégorie','resUrlLbl':'Lien (URL)','resUrlHint':'Colle le lien de partage depuis Google Drive, Dropbox, le site de la fédération, etc.','resNoteLbl':'Note (optionnel)','resNotePh':'Ex : Version 2026','resOpen':'Ouvrir','resNoPreview':'Aperçu non disponible pour ce lien. Ouvre-le directement.','resOpenExt':'Ouvrir le document','resNeedTitle':'Indique un titre','resNeedUrl':'Indique un lien','resAdded':'✅ Document ajouté','resDeleted':'Document supprimé','resConfirmDelete':'Supprimer ce document ?',
   'resCat_reglement':'Règlements','resCat_club':'Documents du club','resCat_tournoi':'Tournois','resCat_formation':'Formation','resCat_autre':'Autres',
-  'anTabTeam':'Équipe','anTabPlayer':'Par joueur','anTabGoals':'Objectifs','anTabGuide':'Guide','anHomeBtn':'Analyse & progression','anHomeHint':'Suivi de la progression du groupe','anHomeAttendance':'présence','anHomeEvals':'suivis',
+  'anTabTeam':'Équipe','anTabPlayer':'Par joueur','anTabGoals':'Objectifs','anTabGuide':'Guide','anHomeBtn':'Analyse & progression','anHomeHint':'Suivi de la progression du groupe','anHomeAttendance':'présence','anHomeEvals':'suivis','pivotError':'Erreur lors de la préparation des données',
   'princ_recup':'Récupération & pression','princ_avancer':'Avancer & soutien','princ_lecture':'Lecture du jeu & discipline','princ_rythme':'Rythme & continuité',
   'anAttendanceTitle':'Assiduité','anPrinciplesTitle':'Principes de jeu','anPlayingTimeTitle':'Temps de jeu cumulé',
   'anNoData':'Pas assez de données','anNoPlayers':'Ajoute des joueurs pour voir l&#39;analyse','anNoEvals':'Aucune évaluation enregistrée','anNoMatchData':'Aucune donnée de match',
@@ -1380,7 +1375,7 @@ const I18N = {
   'voteTitle':'Player of the match','voteShareMsg':'Vote for the player of the match {event}:','voteShareIntro':'Share this link with players. Each votes for a teammate (not themselves) with a reason.','voteWhoAreYou':'Who are you?','voteWhoHint':'Pick your first name (you won\u2019t be able to vote for yourself).','voteContinue':'Continue','voteAs':'You are voting as','voteChange':'change','voteForWho':'Who do you vote for?','voteWhy':'Why?','voteWhyPh':'e.g. great defense and nice team play','voteSubmit':'Vote','voteThanks':'Thanks for your vote!','voteThanksSub':'The result will be announced by the coach.','voteNeedVoter':'Pick your first name','voteNeedChoice':'Pick a player','voteNeedReason':'Explain your choice','voteClosed':'Voting is closed. Thanks!',
   'resTitle':'Resources','resHomeBtn':'Resources & documents','resHomeHint':'Rules, club docs, tournaments','resCountSingular':'document','resCountPlural':'documents','resEmpty':'No documents yet. Add a link to a rulebook, club doc, etc.','resAdd':'Add a document','resNewTitle':'New document','resTitleLbl':'Title','resTitlePh':'e.g. U10 tournament rules','resCatLbl':'Category','resUrlLbl':'Link (URL)','resUrlHint':'Paste the share link from Google Drive, Dropbox, the federation website, etc.','resNoteLbl':'Note (optional)','resNotePh':'e.g. 2026 version','resOpen':'Open','resNoPreview':'Preview not available for this link. Open it directly.','resOpenExt':'Open document','resNeedTitle':'Enter a title','resNeedUrl':'Enter a link','resAdded':'✅ Document added','resDeleted':'Document deleted','resConfirmDelete':'Delete this document?',
   'resCat_reglement':'Rulebooks','resCat_club':'Club documents','resCat_tournoi':'Tournaments','resCat_formation':'Training','resCat_autre':'Other',
-  'anTabTeam':'Team','anTabPlayer':'Per player','anTabGoals':'Goals','anTabGuide':'Guide','anHomeBtn':'Analysis & progress','anHomeHint':'Track the group’s progress','anHomeAttendance':'attendance','anHomeEvals':'tracked',
+  'anTabTeam':'Team','anTabPlayer':'Per player','anTabGoals':'Goals','anTabGuide':'Guide','anHomeBtn':'Analysis & progress','anHomeHint':'Track the group’s progress','anHomeAttendance':'attendance','anHomeEvals':'tracked','pivotError':'Error while preparing data',
   'princ_recup':'Recovery & pressure','princ_avancer':'Advance & support','princ_lecture':'Game reading & discipline','princ_rythme':'Tempo & continuity',
   'anAttendanceTitle':'Attendance','anPrinciplesTitle':'Game principles','anPlayingTimeTitle':'Cumulative playing time',
   'anNoData':'Not enough data','anNoPlayers':'Add players to see the analysis','anNoEvals':'No evaluations recorded','anNoMatchData':'No match data',
@@ -1789,13 +1784,13 @@ function coachName(id){ const co=S.coaches.find(c=>c.id===id); return co?co.firs
 
 const TODO_PREVIEW_MAX=5; // nombre de tâches affichées sur l'accueil
 // HTML d'une tâche (réutilisé accueil + page complète)
-function taskItemHtml(t){
+function taskItemHtml(t, hideCoach){
   const st=t.status;
   const who=t.assignee?coachName(t.assignee):'';
   return '<div class="todo-item">'+
     '<div class="todo-item-main">'+
       '<div class="todo-item-title">'+esc(t.title)+'</div>'+
-      (who?'<div class="todo-item-who">\u{1F464} '+esc(who)+'</div>':'')+
+      (who&&!hideCoach?'<div class="todo-item-who">\u{1F464} '+esc(who)+'</div>':'')+
     '</div>'+
     '<div class="todo-item-actions">'+
       (st!=='todo'?'<button class="todo-mini" onclick="event.stopPropagation();taskMove('+t.id+',-1)" title="'+tr('todoBack')+'">\u2039</button>':'')+
@@ -1861,13 +1856,25 @@ function rTasksFull(){
     html='<div style="font-size:13px;color:var(--mut);text-align:center;padding:40px 0">'+tr('todoEmpty')+'</div>';
   } else {
     TASK_STATUS.forEach(st=>{
-      const list=tasks.filter(t=>t.status===st).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+      const list=tasks.filter(t=>t.status===st);
       const color=st==='todo'?'#EE2837':st==='doing'?'#E8A33D':'#3DA35D';
       html+='<div class="todo-col"><div class="todo-col-hd"><span class="todo-dot" style="background:'+color+'"></span>'+taskStatusLabel(st)+' <span style="color:var(--mut)">('+list.length+')</span></div>';
       if(!list.length){
         html+='<div style="font-size:11px;color:var(--mut);font-style:italic;padding:4px 0">\u2014</div>';
       } else {
-        list.forEach(t=>{ html+=taskItemHtml(t); });
+        // Grouper par coach : chaque coach (ordre de la liste des coachs), puis les non-assignées
+        const groups=[];
+        (S.coaches||[]).forEach(co=>{
+          const ts=list.filter(t=>t.assignee===co.id).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+          if(ts.length) groups.push({name:co.firstName+' '+co.lastName, tasks:ts});
+        });
+        const unassigned=list.filter(t=>!t.assignee).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+        if(unassigned.length) groups.push({name:tr('todoUnassigned'), tasks:unassigned});
+        // Rendu : nom du coach en sous-titre, puis ses tâches
+        groups.forEach(g=>{
+          html+='<div class="todo-coach-hd">\u{1F464} '+esc(g.name)+' <span style="color:var(--mut);font-weight:400">('+g.tasks.length+')</span></div>';
+          g.tasks.forEach(t=>{ html+=taskItemHtml(t, true); });
+        });
       }
       html+='</div>';
     });
@@ -1997,15 +2004,6 @@ function playerAttendanceStats(playerId){
     trainCount:trainSessions.length, matchCount:matchSessions.length, tournoiCount:tournoiSessions.length
   };
 }
-// Taux de présence global sur les N dernières séances (tous types) triées par date
-function attendanceRate(playerId, sessions){
-  const relevant=sessions.filter(s=>S.attendance.some(a=>a.sessionId===s.id&&(playerId?a.playerId===playerId:true)));
-  if(!relevant.length) return null;
-  const atts=S.attendance.filter(a=>relevant.some(s=>s.id===a.sessionId)&&(playerId?a.playerId===playerId:true));
-  if(!atts.length) return null;
-  const present=atts.filter(a=>a.status==='P').length;
-  return Math.round(present/atts.length*100);
-}
 // Tendance d'assiduité équipe : découpe les séances passées en 2 moitiés chronologiques, compare
 function attendanceTrend(){
   const past=S.sessions.filter(s=>s.date<=today()).sort((a,b)=>a.date.localeCompare(b.date));
@@ -2051,6 +2049,20 @@ function evalsForTeam(){
 // ═══════════════════════════════════════════
 let _analyseTab='team';
 
+// Ouvre l'outil de tableau croisé (fichier séparé rcl_analyse.html, même hébergement)
+// Transmet les données via localStorage (même origine) — n'alourdit pas l'app.
+function openPivotAnalysis(){
+  try{
+    localStorage.setItem('rcl_analyse_data', JSON.stringify({
+      meta:{cat:APP_CAT, club:_fb.code||''},
+      S:S,
+      ts:Date.now()
+    }));
+  }catch(e){ toast(tr('pivotError')); return; }
+  // Ouvrir le TCD (à côté de l'app : même dossier)
+  const base=location.href.replace(/[^/]*$/,'');
+  window.open(base+'rcl_analyse.html', '_blank');
+}
 function openAnalyse(){
   const ov=document.getElementById('analyse-ov');
   if(!ov) return;
@@ -3262,7 +3274,6 @@ async function welcomeFetchCoaches(){
 // SONDAGE DE PRÉSENCE — parents répondent via lien, réponses dans l'app
 // Réponses = intentions (pré-remplissage), le coach confirme le jour J
 // ═══════════════════════════════════════════
-const POLL_STATUS=['present','absent','injured']; // réponses possibles côté parent
 
 // Détecte si on est en mode "page parent" (URL avec ?poll=CODE&s=SESSIONID)
 function pollMode(){
