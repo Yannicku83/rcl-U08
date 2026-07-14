@@ -630,7 +630,7 @@ textarea.fi{resize:vertical;min-height:60px}
 // ═══════════════════════════════════════════
 const APP_VER='2.93';
 // ═══ CONFIGURATION CATÉGORIE — modifier ces 2 lignes pour décliner l'app (U6, U8, U10, U12, U14) ═══
-const APP_CAT='U10';              // catégorie : cochée automatiquement sur la feuille FLR + nom de fichier
+const APP_CAT='U08';              // catégorie : cochée automatiquement sur la feuille FLR + nom de fichier
 const APP_NAME='RCL '+APP_CAT+' Coaching'; // nom affiché dans le bandeau de l'app
 // Clés de stockage local spécifiques à la catégorie (évite que U08/U10 se mélangent sur un même appareil)
 const LS_DATA='rcl_'+APP_CAT+'_v2';
@@ -644,11 +644,11 @@ const POLL_FB_CFG = {
   projectId: "rcluxembourg-26-27",
   storageBucket: "rcluxembourg-26-27.firebasestorage.app",
   messagingSenderId: "131221936812",
-  appId: "1:131221936812:web:76d8d9dfb6eaf2bae59d09"
+  appId: "1:131221936812:web:73738f396fb8a730e59d09"
 };
 // ═══ PRÉ-CONFIGURATION (rempli par le générateur, sinon null) ═══
 // Si défini, l'app se connecte automatiquement et n'affiche qu'un écran "Entre ton nom + Connecter"
-const PRECONFIG = {"fb":{"apiKey":"AIzaSyAalJZAZRhpmTAlJ5lNzTiA05TxbHuAgfo","authDomain":"rcluxembourg-26-27.firebaseapp.com","projectId":"rcluxembourg-26-27","storageBucket":"rcluxembourg-26-27.firebasestorage.app","messagingSenderId":"131221936812","appId":"1:131221936812:web:76d8d9dfb6eaf2bae59d09","measurementId":"G-RY6RCEGXG6"},"club":"rcl-u10-2026","chatCode":"U10"}; /*PRECONFIG_INJECT*/
+const PRECONFIG = {"fb":{"apiKey":"AIzaSyAalJZAZRhpmTAlJ5lNzTiA05TxbHuAgfo","authDomain":"rcluxembourg-26-27.firebaseapp.com","projectId":"rcluxembourg-26-27","storageBucket":"rcluxembourg-26-27.firebasestorage.app","messagingSenderId":"131221936812","appId":"1:131221936812:web:73738f396fb8a730e59d09","measurementId":"G-2JXQEV91P4"},"club":"rcl-U08-2026","chatCode":"U08"}; /*PRECONFIG_INJECT*/
 let S = { players:[], sessions:[], attendance:[], evaluations:[], coaches:[], coachAttendance:[], tasks:[], goals:[], resources:[], mvpResults:[] };
 let NID = { players:1, sessions:1, attendance:1, evaluations:1, coaches:1, coachAttendance:1 };
 let _curSType = 'Entra\u00eenement';
