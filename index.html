@@ -677,7 +677,7 @@ textarea.fi{resize:vertical;min-height:60px}
 // ═══════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════
-const APP_VER='3.06';
+const APP_VER='3.13';
 /* ═══════════════════════════════════════════════════════════════════════════
    RCL COACHING — Application de gestion d'équipe de rugby jeunes (RCL Luxembourg)
    ───────────────────────────────────────────────────────────────────────────
@@ -814,7 +814,7 @@ function updateHeaderDate(){
 // ═══════════════════════════════════════════
 const I18N = {
   fr: {
-  'todoTitle':'Tâches des coachs','todoAllTitle':'Toutes les tâches','todoBackHome':'Accueil','todoEmpty':'Aucune tâche. Ajoute-en une !','todoNewTask':'Nouvelle tâche','todoTaskLbl':'Description','todoTaskPh':'Ex : Préparer les plots pour samedi','todoAssignLbl':'Assigner à','todoUnassigned':'Non assignée','todoNeedTitle':'Décris la tâche','todoAdded':'✅ Tâche ajoutée','todoDeleted':'Tâche supprimée','todoConfirmDelete':'Supprimer cette tâche ?','todoBack':'Reculer','todoNext':'Avancer','todoDelete':'Supprimer','task_todo':'À faire','task_doing':'En cours','task_done':'Fait',
+  'todoTitle':'Tâches des coachs','todoAllTitle':'Toutes les tâches','todoBackHome':'Accueil','todoEmpty':'Aucune tâche. Ajoute-en une !','todoNewTask':'Nouvelle tâche','todoTaskLbl':'Description','todoTaskPh':'Ex : Préparer les plots pour samedi','todoAssignLbl':'Assigner à','todoUnassigned':'Non assignée','todoScopeMine':'Mes tâches','todoScopeTeam':'Équipe','todoNeedTitle':'Décris la tâche','todoAdded':'✅ Tâche ajoutée','todoDeleted':'Tâche supprimée','todoConfirmDelete':'Supprimer cette tâche ?','todoBack':'Reculer','todoNext':'Avancer','todoDelete':'Supprimer','task_todo':'À faire','task_doing':'En cours','task_done':'Fait',
   'statPlayers':'Joueurs',
   'statTrainings':'Entraîn.',
   'statMatches':'Matchs',
@@ -1029,8 +1029,8 @@ const I18N = {
   'csvCoaches':'Coachs',
   'csvExportHint':'Télécharge un fichier CSV (ouvrable dans Excel).',
   'csvImportTitle':'Importer une liste','csvImportHint':'Importe un CSV pré-rempli (mêmes colonnes que l&#39;export). Les fiches sont ajoutées.',
-  'impPreviewTitle':'Aperçu de l&#39;import','impToAdd':'à ajouter','impErrors':'erreurs','impLine':'Ligne',
-  'impPreviewRows':'Aperçu :','impMore':'autres','impConfirm':'✓ Ajouter {n}','impDone':'✅ {n} fiche(s) ajoutée(s)',
+  'impPreviewTitle':'Aperçu de l&#39;import','impNew':'nouveaux','impExisting':'déjà présents','impExistsTag':'existe','impDupFound':'{n} enregistrement(s) existent déjà. Que faire ?','impModeUpdate':'Mettre à jour','impModeUpdateDesc':'Complète les fiches existantes (une case vide n\u2019efface jamais une donnée)','impModeSkip':'Ignorer les doublons','impModeSkipDesc':'N\u2019ajoute que les nouveaux','impModeAdd':'Tout ajouter','impModeAddDesc':'Crée des doublons (déconseillé)','impResAdded':'ajouté(s)','impResUpdated':'mis à jour','impResSkipped':'ignoré(s)','impResNothing':'Aucune modification','impErrors':'erreurs','impLine':'Ligne',
+  'impPreviewRows':'Aperçu :','impMore':'autres','impConfirm':'✓ Ajouter {n}',
   'impError':'⚠️ Fichier illisible','impEmpty':'⚠️ Fichier vide ou sans données','impNeedName':'Prénom et Nom requis',
   'impDupPlayer':'Doublon nom+prénom (ambigu) :','impNoPlayer':'Joueur introuvable :','impNeedDate':'Date requise','impBadDate':'Date invalide :','impBadStatus':'Statut inconnu :',
   'csvTraining':'Entraînements',
@@ -1078,9 +1078,9 @@ const I18N = {
   'roleLbl':'Rôle','role_coach':'Coach','role_manager':'Manager','role_assistant':'Assistant',
   'noCoachYet':'Aucun coach enregistré','confirmDeleteCoach':'Supprimer ce coach ?',
   'toastCoachAdded':'✅ Coach ajouté','toastCoachUpdated':'✅ Coach modifié',
-  'availYes':'Dispo','availMaybe':'Peut-être','availNo':'Absent','coverCoaches':'coach(s)','colAvail':'Dispo','colForecast':'Prévu','colReal':'Réel','ssumLegend':'🎯 coach·joueur prévus &bull; ✅ réels','myAvailTitle':'Ma disponibilité','myAvailPreview':'{n} prochaine(s) séance(s) à renseigner','availIntro':'Indique ta disponibilité pour tes prochaines séances. Les autres coachs voient la couverture.','availNeedCoach':'Connecte-toi avec ton prénom de coach pour renseigner ta disponibilité.','availNoSession':'Aucune séance à venir.','availNobody':'Personne n\u2019a encore répondu.','coachesSectionTitle':'Coachs','staffMatchTitle':'Staff du match','noCoachAssigned':'Aucun coach assigné',
+  'availYes':'Dispo','availMaybe':'Peut-être','availNo':'Absent','coverCoaches':'coach(s)','colAvail':'Dispo','colAvailLogin':'Qui es-tu ?','availNeedCoachShort':'Identifie-toi pour renseigner ta dispo','colForecast':'Prévu','colReal':'Réel','ssumLegend':'🎯 coach·joueur prévus &bull; ✅ réels','myAvailTitle':'Ma disponibilité','myAvailPreview':'{n} prochaine(s) séance(s) à renseigner','availIntro':'Indique ta disponibilité pour tes prochaines séances. Les autres coachs voient la couverture.','availNeedCoach':'Connecte-toi avec ton prénom de coach pour renseigner ta disponibilité.','availNoSession':'Aucune séance à venir.','availNobody':'Personne n\u2019a encore répondu.','coachesSectionTitle':'Coachs','staffMatchTitle':'Staff du match','noCoachAssigned':'Aucun coach assigné',
   'assignedCoachesLbl':'Coachs présents',
-  'licenseLbl':'N° licence',
+  'licenseLbl':'N° licence','trMandatoryTitle':'Formations obligatoires effectuées','trTheme_injury':'Prévention des blessures & gestion des risques','trTheme_welfare':'Bien-être du joueur / Médical','trTheme_coaching':'Coaching','trTheme_safeguarding':'Protection (Safeguarding)','trThemeOther':'Autres','trEquivTag':'équivalence','trCycleHint':'Touche la case : 1 fois = fait \u2713, 2 fois = par équivalence \u2248, 3 fois = à faire','trCatalogThemePrompt':'Thème (numéro) :','trCatalogResetBtn':'Rétablir la liste par défaut','trCatalogResetConfirm':'Rétablir la liste par défaut ? Les coches actuelles des coachs seront effacées.','trCatalogReset':'✅ Liste rétablie','trTaskPrefix':'Formation :','trTasksAutoNote':'Les tâches correspondantes sont créées et suivies automatiquement.','trTaskAutoLocked':'Tâche liée à une formation : valide la formation pour la retirer.','trExtraTitle':'Formations complémentaires effectuées','trExtraAdd':'Ajouter une formation','trExtraEmpty':'Aucune formation complémentaire','trExtraPrompt':'Nom de la formation complémentaire :','trCatalogAdd':'Ajouter à la liste obligatoire','trCatalogPrompt':'Nom de la formation obligatoire :','trCatalogRemove':'Retirer de la liste obligatoire','trCatalogRemoveConfirm':'Retirer « {n} » de la liste obligatoire ? Cela concerne tous les coachs.','trCatalogHint':'Liste modifiable : adapte-la aux exigences de ta fédération.','trRemaining':'{n} formation(s) restante(s)','trAllDone':'Toutes les formations obligatoires sont faites',
   'liveSyncTitle':'Synchro live (Firebase)',
   'liveOff':'Non configurée',
   'liveConnecting':'Connexion…',
@@ -1172,7 +1172,7 @@ const I18N = {
   'squadStepHint':'Qui joue dans quelle équipe (place les joueurs au banc le jour J)'
 },
   en: {
-  'todoTitle':'Coach tasks','todoAllTitle':'All tasks','todoBackHome':'Home','todoEmpty':'No tasks yet. Add one!','todoNewTask':'New task','todoTaskLbl':'Description','todoTaskPh':'e.g. Bring cones for Saturday','todoAssignLbl':'Assign to','todoUnassigned':'Unassigned','todoNeedTitle':'Describe the task','todoAdded':'✅ Task added','todoDeleted':'Task deleted','todoConfirmDelete':'Delete this task?','todoBack':'Back','todoNext':'Forward','todoDelete':'Delete','task_todo':'To do','task_doing':'In progress','task_done':'Done',
+  'todoTitle':'Coach tasks','todoAllTitle':'All tasks','todoBackHome':'Home','todoEmpty':'No tasks yet. Add one!','todoNewTask':'New task','todoTaskLbl':'Description','todoTaskPh':'e.g. Bring cones for Saturday','todoAssignLbl':'Assign to','todoUnassigned':'Unassigned','todoScopeMine':'My tasks','todoScopeTeam':'Team','todoNeedTitle':'Describe the task','todoAdded':'✅ Task added','todoDeleted':'Task deleted','todoConfirmDelete':'Delete this task?','todoBack':'Back','todoNext':'Forward','todoDelete':'Delete','task_todo':'To do','task_doing':'In progress','task_done':'Done',
   'statPlayers':'Players',
   'statTrainings':'Train.',
   'statMatches':'Matches',
@@ -1390,8 +1390,8 @@ const I18N = {
   'csvCoaches':'Staff',
   'csvExportHint':'Downloads a CSV file (opens in Excel).',
   'csvImportTitle':'Import a list','csvImportHint':'Import a filled CSV (same columns as export). Records are added.',
-  'impPreviewTitle':'Import preview','impToAdd':'to add','impErrors':'errors','impLine':'Line',
-  'impPreviewRows':'Preview:','impMore':'more','impConfirm':'✓ Add {n}','impDone':'✅ {n} record(s) added',
+  'impPreviewTitle':'Import preview','impNew':'new','impExisting':'already there','impExistsTag':'exists','impDupFound':'{n} record(s) already exist. What should we do?','impModeUpdate':'Update','impModeUpdateDesc':'Fills in existing records (blank cells never erase data)','impModeSkip':'Skip duplicates','impModeSkipDesc':'Only adds new records','impModeAdd':'Add everything','impModeAddDesc':'Creates duplicates (not advised)','impResAdded':'added','impResUpdated':'updated','impResSkipped':'skipped','impResNothing':'No change','impErrors':'errors','impLine':'Line',
+  'impPreviewRows':'Preview:','impMore':'more','impConfirm':'✓ Add {n}',
   'impError':'⚠️ Unreadable file','impEmpty':'⚠️ Empty file or no data','impNeedName':'First and last name required',
   'impDupPlayer':'Duplicate name (ambiguous):','impNoPlayer':'Player not found:','impNeedDate':'Date required','impBadDate':'Invalid date:','impBadStatus':'Unknown status:',
   'csvTraining':'Training sessions',
@@ -1439,9 +1439,9 @@ const I18N = {
   'roleLbl':'Role','role_coach':'Coach','role_manager':'Manager','role_assistant':'Assistant',
   'noCoachYet':'No coach registered','confirmDeleteCoach':'Delete this coach?',
   'toastCoachAdded':'✅ Coach added','toastCoachUpdated':'✅ Coach updated',
-  'availYes':'Avail.','availMaybe':'Maybe','availNo':'Not avail.','coverCoaches':'coach(es)','colAvail':'Avail.','colForecast':'Expected','colReal':'Actual','ssumLegend':'🎯 expected coach·player &bull; ✅ actual','myAvailTitle':'My availability','myAvailPreview':'{n} upcoming session(s) to answer','availIntro':'Set your availability for upcoming sessions. Other coaches can see the cover.','availNeedCoach':'Connect with your coach first name to set your availability.','availNoSession':'No upcoming session.','availNobody':'Nobody has replied yet.','coachesSectionTitle':'Coaches','staffMatchTitle':'Match staff','noCoachAssigned':'No coach assigned',
+  'availYes':'Avail.','availMaybe':'Maybe','availNo':'Not avail.','coverCoaches':'coach(es)','colAvail':'Avail.','colAvailLogin':'Who are you?','availNeedCoachShort':'Sign in to set your availability','colForecast':'Expected','colReal':'Actual','ssumLegend':'🎯 expected coach·player &bull; ✅ actual','myAvailTitle':'My availability','myAvailPreview':'{n} upcoming session(s) to answer','availIntro':'Set your availability for upcoming sessions. Other coaches can see the cover.','availNeedCoach':'Connect with your coach first name to set your availability.','availNoSession':'No upcoming session.','availNobody':'Nobody has replied yet.','coachesSectionTitle':'Coaches','staffMatchTitle':'Match staff','noCoachAssigned':'No coach assigned',
   'assignedCoachesLbl':'Coaches present',
-  'licenseLbl':'License No.',
+  'licenseLbl':'License No.','trMandatoryTitle':'Mandatory training completed','trTheme_injury':'Injury prevention & risk management','trTheme_welfare':'Player Welfare / Medical','trTheme_coaching':'Coaching','trTheme_safeguarding':'Safeguarding','trThemeOther':'Other','trEquivTag':'equivalence','trCycleHint':'Tap the box: once = done \u2713, twice = by equivalence \u2248, three times = to do','trCatalogThemePrompt':'Theme (number):','trCatalogResetBtn':'Restore default list','trCatalogResetConfirm':'Restore the default list? Coaches\u2019 current ticks will be cleared.','trCatalogReset':'✅ List restored','trTaskPrefix':'Training:','trTasksAutoNote':'Matching tasks are created and kept in sync automatically.','trTaskAutoLocked':'Task linked to a training: validate the training to remove it.','trExtraTitle':'Additional training completed','trExtraAdd':'Add training','trExtraEmpty':'No additional training','trExtraPrompt':'Name of the additional training:','trCatalogAdd':'Add to mandatory list','trCatalogPrompt':'Name of the mandatory training:','trCatalogRemove':'Remove from mandatory list','trCatalogRemoveConfirm':'Remove \u201C{n}\u201D from the mandatory list? This affects every coach.','trCatalogHint':'Editable list \u2014 adjust it to your union\u2019s requirements.','trRemaining':'{n} training(s) remaining','trAllDone':'All mandatory training completed',
   'liveSyncTitle':'Live sync (Firebase)',
   'liveOff':'Not configured',
   'liveConnecting':'Connecting…',
@@ -1780,10 +1780,20 @@ function rMatchDay(){
 function rMyAvail(){
   const card=document.getElementById('avail-home-card'); if(!card) return;
   const cid=currentCoachId();
-  if(!cid){ card.style.display='none'; return; } // visible seulement si connecté comme coach
   const todayStr=today();
   const upcoming=S.sessions.filter(s=>s.date>=todayStr).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,5);
   if(!upcoming.length){ card.style.display='none'; return; }
+  if(!cid){
+    // Pas encore identifié sur CET appareil (l'identité est stockée par appareil) :
+    // on invite à se connecter au lieu de masquer la carte sans explication
+    card.style.display='flex';
+    card.setAttribute('onclick','showCoachWelcome()');
+    document.getElementById('avail-home-btn').textContent=tr('myAvailTitle');
+    document.getElementById('avail-home-preview').textContent=tr('availNeedCoachShort');
+    document.getElementById('avail-home-badges').innerHTML='';
+    return;
+  }
+  card.setAttribute('onclick','openAvail()');
   card.style.display='flex';
   // Compter : sans réponse (rouge) et maybe (orange)
   const pending=upcoming.filter(s=>!getCoachAvail(s.id, cid)).length;
@@ -2023,15 +2033,25 @@ function sessionSummaryGrid(s){
   const rl=sessionReal(s);
   const cid=currentCoachId();
   const cur=cid?getCoachAvail(s.id, cid):'';
-  // Colonne 1 : boutons dispo (uniquement si séance à venir ET coach connecté)
+  // Colonne 1 : dispo du coach connecté (séances à venir uniquement).
+  // ⚠️ L'identité du coach est stockée PAR APPAREIL : sur un nouvel appareil (PC),
+  // tant qu'on ne s'est pas identifié, on affiche un bouton de connexion plutôt que
+  // de masquer la colonne sans explication (sinon l'affichage semble cassé).
   let col1='';
-  if(!isPast && cid){
-    col1='<div class="ssum-col"><div class="ssum-hd">'+tr('colAvail')+'</div>'+
-      '<div class="ssum-availbtns">'+COACH_AVAIL.map(a=>
-        '<button onclick="event.stopPropagation();setCoachAvail('+s.id+','+cid+',\''+a.v+'\');rSessions();rMyAvail&&rMyAvail()" '+
-        'title="'+tr(a.lbl)+'" style="border:1.5px solid '+(cur===a.v?a.c:'var(--brd)')+';'+
-        'background:'+(cur===a.v?a.c:'#fff')+';color:'+(cur===a.v?'#fff':'var(--mut)')+'">'+a.ic+'</button>'
-      ).join('')+'</div></div>';
+  if(!isPast){
+    if(cid){
+      col1='<div class="ssum-col"><div class="ssum-hd">'+tr('colAvail')+'</div>'+
+        '<div class="ssum-availbtns">'+COACH_AVAIL.map(a=>
+          '<button onclick="event.stopPropagation();setCoachAvail('+s.id+','+cid+',\''+a.v+'\');rSessions();rMyAvail&&rMyAvail()" '+
+          'title="'+tr(a.lbl)+'" style="border:1.5px solid '+(cur===a.v?a.c:'var(--brd)')+';'+
+          'background:'+(cur===a.v?a.c:'#fff')+';color:'+(cur===a.v?'#fff':'var(--mut)')+'">'+a.ic+'</button>'
+        ).join('')+'</div></div>';
+    } else {
+      col1='<div class="ssum-col"><div class="ssum-hd">'+tr('colAvail')+'</div>'+
+        '<button onclick="event.stopPropagation();showCoachWelcome()" '+
+        'style="width:100%;font-size:10.5px;font-weight:700;padding:6px 2px;border-radius:8px;'+
+        'border:1.5px dashed var(--mg);background:#fff;color:var(--mg);cursor:pointer">'+tr('colAvailLogin')+'</button></div>';
+    }
   }
   // Colonne 2 : prévisionnel (coach · joueur)
   const col2='<div class="ssum-col"><div class="ssum-hd">'+tr('colForecast')+'</div>'+
@@ -2142,13 +2162,13 @@ function taskItemHtml(t, hideCoach){
   const who=t.assignee?coachName(t.assignee):'';
   return '<div class="todo-item">'+
     '<div class="todo-item-main">'+
-      '<div class="todo-item-title">'+esc(t.title)+'</div>'+
+      '<div class="todo-item-title">'+(t.autoTrainingId?'\u{1F393} ':'')+esc(t.title)+'</div>'+
       (who&&!hideCoach?'<div class="todo-item-who">\u{1F464} '+esc(who)+'</div>':'')+
     '</div>'+
     '<div class="todo-item-actions">'+
       (st!=='todo'?'<button class="todo-mini" onclick="event.stopPropagation();taskMove('+t.id+',-1)" title="'+tr('todoBack')+'">\u2039</button>':'')+
       (st!=='done'?'<button class="todo-mini" onclick="event.stopPropagation();taskMove('+t.id+',1)" title="'+tr('todoNext')+'">\u203A</button>':'')+
-      '<button class="todo-mini todo-del" onclick="event.stopPropagation();taskDelete('+t.id+')" title="'+tr('todoDelete')+'">\u00D7</button>'+
+      (t.autoTrainingId?'':'<button class="todo-mini todo-del" onclick="event.stopPropagation();taskDelete('+t.id+')" title="'+tr('todoDelete')+'">\u00D7</button>')+
     '</div></div>';
 }
 
@@ -2159,16 +2179,21 @@ function rTodo(){
   const allTasks=S.tasks||[];
   if(!allTasks.length){ card.style.display='none'; return; }
   card.style.display='flex';
-  // Tâches du coach connecté si identifié, sinon toutes
   const cid=currentCoachId();
-  const mine=cid ? allTasks.filter(t=>t.assignee===cid) : allTasks;
-  const tasks=mine.length?mine:allTasks; // si le coach n'a aucune tâche perso, montrer le global
+  // Comparaison souple : l'assignee peut être un nombre ou du texte (import CSV / anciennes données)
+  const mine=cid ? allTasks.filter(t=>t.assignee!=null && String(t.assignee)===String(cid)) : [];
+  const pending=l=>l.filter(t=>t.status==='todo'||t.status==='doing').length;
+  // On affiche MES tâches seulement si j'ai du travail en attente ; sinon on montre celles de
+  // l'équipe, pour que la carte reste utile (sinon : 0/0 alors que l'équipe a du retard).
+  const scopeMine=pending(mine)>0;
+  const tasks=scopeMine?mine:allTasks;
   const todo=tasks.filter(t=>t.status==='todo').length;
   const doing=tasks.filter(t=>t.status==='doing').length;
   const done=tasks.filter(t=>t.status==='done').length;
   document.getElementById('todo-home-btn').textContent=tr('todoTitle');
-  // Preview : "X à faire · Y en cours · Z fait"
+  // Preview : portée + "X à faire · Y en cours · Z fait"
   document.getElementById('todo-home-preview').textContent=
+    (scopeMine?tr('todoScopeMine'):tr('todoScopeTeam'))+' \u00b7 '+
     todo+' '+tr('task_todo').toLowerCase()+' \u00b7 '+doing+' '+tr('task_doing').toLowerCase()+' \u00b7 '+done+' '+tr('task_done').toLowerCase();
   // Badges : à faire (rouge) + en cours (orange) — on n'alerte pas sur "fait"
   let badges='';
@@ -2274,11 +2299,21 @@ function taskMove(id, dir){
   const ni=i+dir;
   if(ni<0||ni>=TASK_STATUS.length) return;
   t.status=TASK_STATUS[ni];
-  save(); rTodo();
-  if(document.getElementById('tasks-ov')?.classList.contains('open')) rTasksFull();
+  // Sens inverse : marquer « Fait » une tâche auto valide la formation correspondante.
+  // La synchro retire ensuite la tâche (objectif atteint) — pas de doublon possible.
+  if(t.autoTrainingId&&t.status==='done'){
+    const co=(S.coaches||[]).find(c=>String(c.id)===String(t.assignee));
+    if(co){ const m=coachTrainingMap(co); m[t.autoTrainingId]='done'; co.trainings=m; }
+    syncTrainingTasks();
+    if(typeof rCoaches==='function'&&document.getElementById('p-list')) rCoaches();
+  }
+  save(); refreshTaskViews();
 }
 
 function taskDelete(id){
+  const tk=S.tasks.find(x=>x.id===id);
+  // Une tâche auto serait recréée aussitôt par la synchro → on l'explique au lieu de boucler
+  if(tk&&tk.autoTrainingId){ toast(tr('trTaskAutoLocked')); return; }
   confirmBox(tr('todoConfirmDelete'), ()=>{
     S.tasks=S.tasks.filter(x=>x.id!==id);
     save(); rTodo();
@@ -4108,6 +4143,194 @@ function setRosterTab(t){
 }
 function rosterAdd(){ if(_rosterTab==='players') openPF(); else openCF(); }
 function rRoster(){ if(_rosterTab==='players') rPlayers(); else rCoaches(); }
+// ═══════════════════════════════════════════
+// FORMATIONS DES COACHS
+// S.trainingCatalog = [{id,name,theme}] : formations OBLIGATOIRES, groupées par thème
+//   (liste modifiable : chaque fédération a ses propres exigences)
+// co.trainings      = {catalogId:'done'|'equiv'} : 'equiv' = acquise par équivalence
+// co.extraTrainings = [{id,name}] : formations complémentaires saisies librement
+// ═══════════════════════════════════════════
+const TRAINING_THEMES=['injury','welfare','coaching','safeguarding'];
+const DEFAULT_TRAINING_CATALOG=[
+  {theme:'injury',       name:'Rugby Ready'},
+  {theme:'welfare',      name:'Concussion Management for the General Public'},
+  {theme:'coaching',     name:'Introduction to Coaching'},
+  {theme:'coaching',     name:'Coaching Children'},
+  {theme:'coaching',     name:'Key Factor Analysis'},
+  {theme:'safeguarding', name:'Safeguarding Essentials'}
+];
+function themeLabel(k){ return k?tr('trTheme_'+k):tr('trThemeOther'); }
+function ensureTrainingCatalog(){
+  if(!Array.isArray(S.trainingCatalog)||!S.trainingCatalog.length){
+    if(!NID.trainingCatalog||isNaN(NID.trainingCatalog)) NID.trainingCatalog=1;
+    S.trainingCatalog=DEFAULT_TRAINING_CATALOG.map(t=>({id:gid('trainingCatalog'), name:t.name, theme:t.theme}));
+  }
+  return S.trainingCatalog;
+}
+// Remet la liste par défaut (utile si elle a été modifiée par erreur)
+function resetTrainingCatalog(){
+  confirmBox(tr('trCatalogResetConfirm'), ()=>{
+    S.trainingCatalog=[]; ensureTrainingCatalog();
+    (S.coaches||[]).forEach(c=>{ c.trainings={}; }); // les anciennes coches ne correspondent plus
+    _cfTrainings={};
+    syncTrainingTasks(); save(); rCFTrainings(); refreshTaskViews(); toast(tr('trCatalogReset'));
+  });
+}
+// Lecture tolérante : ancien format (tableau d'ids) ou nouveau (objet id→statut)
+function coachTrainingMap(co){
+  const t=co&&co.trainings;
+  if(Array.isArray(t)){ const m={}; t.forEach(id=>m[id]='done'); return m; }
+  return t&&typeof t==='object'?t:{};
+}
+// Progression : 'done' ET 'equiv' comptent comme acquises
+function coachTrainingProgress(co){
+  const cat=ensureTrainingCatalog(), m=coachTrainingMap(co);
+  const done=cat.filter(t=>m[t.id]).length;
+  return {done, total:cat.length};
+}
+// Groupe le catalogue par thème (dans l'ordre défini, puis les thèmes libres)
+function catalogByTheme(){
+  const cat=ensureTrainingCatalog(), groups=[];
+  const themes=[...TRAINING_THEMES, ...new Set(cat.map(t=>t.theme||'').filter(th=>!TRAINING_THEMES.includes(th)))];
+  themes.forEach(th=>{
+    const items=cat.filter(t=>(t.theme||'')===th);
+    if(items.length) groups.push({theme:th, items});
+  });
+  return groups;
+}
+// État temporaire pendant l'édition (validé au moment de saveC)
+let _cfTrainings={};   // {catalogId:'done'|'equiv'}
+let _cfExtras=[];      // formations complémentaires
+// Cycle : rien → fait → équivalence → rien
+function cfCycleTraining(id){
+  const cur=_cfTrainings[id];
+  if(!cur) _cfTrainings[id]='done';
+  else if(cur==='done') _cfTrainings[id]='equiv';
+  else delete _cfTrainings[id];
+  rCFTrainings();
+}
+function cfAddExtra(){
+  const name=prompt(tr('trExtraPrompt'),'');
+  if(name===null) return;
+  const n=name.trim(); if(!n) return;
+  if(!NID.extraTrainings||isNaN(NID.extraTrainings)) NID.extraTrainings=1;
+  _cfExtras.push({id:gid('extraTrainings'), name:n});
+  rCFTrainings();
+}
+function cfRemoveExtra(id){ _cfExtras=_cfExtras.filter(x=>x.id!==id); rCFTrainings(); }
+// Ajouter / retirer une formation du catalogue OBLIGATOIRE (concerne tous les coachs)
+function cfAddCatalog(){
+  const name=prompt(tr('trCatalogPrompt'),'');
+  if(name===null) return;
+  const n=name.trim(); if(!n) return;
+  const th=prompt(tr('trCatalogThemePrompt')+'\n1='+tr('trTheme_injury')+'  2='+tr('trTheme_welfare')+'  3='+tr('trTheme_coaching')+'  4='+tr('trTheme_safeguarding'),'3');
+  const theme=({'1':'injury','2':'welfare','3':'coaching','4':'safeguarding'})[(th||'').trim()]||'';
+  ensureTrainingCatalog();
+  if(!NID.trainingCatalog||isNaN(NID.trainingCatalog)) NID.trainingCatalog=1;
+  S.trainingCatalog.push({id:gid('trainingCatalog'), name:n, theme});
+  syncTrainingTasks(); save(); rCFTrainings(); refreshTaskViews();
+}
+function cfRemoveCatalog(id){
+  const t=(S.trainingCatalog||[]).find(x=>x.id===id); if(!t) return;
+  confirmBox(tr('trCatalogRemoveConfirm').replace('{n}',t.name), ()=>{
+    S.trainingCatalog=S.trainingCatalog.filter(x=>x.id!==id);
+    // Retirer la référence chez tous les coachs (sinon coche orpheline)
+    (S.coaches||[]).forEach(c=>{ const m=coachTrainingMap(c); delete m[id]; c.trainings=m; });
+    delete _cfTrainings[id];
+    syncTrainingTasks(); save(); rCFTrainings(); refreshTaskViews();
+  });
+}
+// Rendu des deux sections dans le formulaire coach
+function rCFTrainings(){
+  const box=document.getElementById('cf-trainings'); if(!box) return;
+  const cat=ensureTrainingCatalog();
+  const done=Object.keys(_cfTrainings).filter(id=>cat.some(t=>String(t.id)===String(id))).length;
+  let html='<div class="fg"><label class="fl" style="display:flex;align-items:center;gap:6px">'+
+    tr('trMandatoryTitle')+
+    '<span style="font-size:10px;font-weight:700;color:#fff;background:'+(done===cat.length?'#22C55E':'var(--mg)')+';border-radius:20px;padding:1px 8px">'+done+'/'+cat.length+'</span>'+
+    '</label>';
+  html+='<div style="font-size:10.5px;color:var(--mut);margin-bottom:6px">'+tr('trCycleHint')+'</div>';
+  catalogByTheme().forEach(g=>{
+    html+='<div style="font-size:11px;font-weight:800;color:var(--mg);margin:8px 0 4px;text-transform:uppercase;letter-spacing:.03em">'+esc(themeLabel(g.theme))+'</div>'+
+      '<div style="border:1px solid var(--brd);border-radius:10px;overflow:hidden">';
+    g.items.forEach(t=>{
+      const st=_cfTrainings[t.id];
+      const bg=st==='done'?'#E8F5E9':st==='equiv'?'#EAF2FB':'#fff';
+      const bc=st==='done'?'#22C55E':st==='equiv'?'#005B96':'var(--brd)';
+      const ic=st==='done'?'\u2713':st==='equiv'?'\u2248':'';
+      html+='<div style="display:flex;align-items:center;gap:8px;padding:9px 10px;border-bottom:1px solid var(--brd);background:'+bg+'">'+
+        '<button type="button" onclick="cfCycleTraining('+t.id+')" title="'+tr('trCycleHint')+'" style="width:24px;height:24px;flex-shrink:0;border-radius:6px;cursor:pointer;'+
+          'border:1.5px solid '+bc+';background:'+(st?bc:'#fff')+';color:#fff;font-size:13px;line-height:1;padding:0">'+ic+'</button>'+
+        '<span style="flex:1;font-size:12.5px">'+esc(t.name)+
+          (st==='equiv'?' <span style="font-size:9.5px;font-weight:700;color:#005B96;background:#D9EAF5;border-radius:10px;padding:1px 6px">'+tr('trEquivTag')+'</span>':'')+'</span>'+
+        '<button type="button" onclick="cfRemoveCatalog('+t.id+')" title="'+tr('trCatalogRemove')+'" style="border:none;background:none;color:var(--mut);cursor:pointer;font-size:15px;padding:0 2px">\u00D7</button>'+
+      '</div>';
+    });
+    html+='</div>';
+  });
+  html+='<div style="display:flex;gap:6px;margin-top:6px">'+
+      '<button type="button" class="btn btn-out btn-sm" style="flex:1" onclick="cfAddCatalog()">+ '+tr('trCatalogAdd')+'</button>'+
+      '<button type="button" class="btn btn-out btn-sm" onclick="resetTrainingCatalog()" title="'+tr('trCatalogResetBtn')+'">\u21BA</button></div>'+
+    '<div style="font-size:10.5px;color:var(--mut);margin-top:4px;line-height:1.4">'+tr('trCatalogHint')+'</div></div>';
+  // Formations complémentaires
+  html+='<div class="fg"><label class="fl">'+tr('trExtraTitle')+'</label>';
+  if(_cfExtras.length){
+    html+='<div style="border:1px solid var(--brd);border-radius:10px;overflow:hidden;margin-bottom:6px">';
+    _cfExtras.forEach(x=>{
+      html+='<div style="display:flex;align-items:center;gap:8px;padding:9px 10px;border-bottom:1px solid var(--brd)">'+
+        '<span style="flex:1;font-size:12.5px">\u{1F393} '+esc(x.name)+'</span>'+
+        '<button type="button" onclick="cfRemoveExtra('+x.id+')" style="border:none;background:none;color:var(--red);cursor:pointer;font-size:15px;padding:0 2px">\u00D7</button></div>';
+    });
+    html+='</div>';
+  } else {
+    html+='<div style="font-size:11.5px;color:var(--mut);font-style:italic;margin-bottom:6px">'+tr('trExtraEmpty')+'</div>';
+  }
+  html+='<button type="button" class="btn btn-out btn-sm btn-w" onclick="cfAddExtra()">+ '+tr('trExtraAdd')+'</button></div>';
+  box.innerHTML=html;
+}
+// ── Lien FORMATIONS ⇄ TÂCHES (automatique) ──
+// Une tâche « auto » porte t.autoTrainingId = id de la formation manquante.
+// La synchro est IDEMPOTENTE : la relancer ne crée jamais de doublon.
+//   • formation non acquise  → une tâche existe (créée si absente)
+//   • formation acquise      → la tâche auto est retirée (objectif atteint)
+//   • coach/formation supprimé → la tâche auto orpheline est retirée
+// Sens inverse : passer une tâche auto à « Fait » coche la formation (voir taskMove).
+// ⚠️ Les tâches auto ne sont pas supprimables à la main : elles seraient recréées
+//    aussitôt par la synchro (boucle). On les fait disparaître en validant la formation.
+function syncTrainingTasks(){
+  if(!S.tasks) S.tasks=[];
+  if(!NID.tasks||isNaN(NID.tasks)) NID.tasks=1;
+  const cat=ensureTrainingCatalog();
+  const catIds=new Set(cat.map(t=>String(t.id)));
+  let changed=false;
+  // 1. Nettoyage : tâches auto devenues inutiles ou orphelines
+  const kept=S.tasks.filter(t=>{
+    if(t.autoTrainingId===undefined||t.autoTrainingId===null) return true; // tâche manuelle : intouchée
+    const co=(S.coaches||[]).find(c=>String(c.id)===String(t.assignee));
+    if(!co||!catIds.has(String(t.autoTrainingId))){ changed=true; return false; } // orpheline
+    if(coachTrainingMap(co)[t.autoTrainingId]){ changed=true; return false; }      // formation acquise
+    return true;
+  });
+  if(kept.length!==S.tasks.length) S.tasks=kept;
+  // 2. Création des tâches manquantes (une seule par coach × formation)
+  (S.coaches||[]).forEach(co=>{
+    const m=coachTrainingMap(co);
+    cat.forEach(t=>{
+      if(m[t.id]) return; // déjà acquise
+      const exists=S.tasks.some(x=>String(x.autoTrainingId)===String(t.id)&&String(x.assignee)===String(co.id));
+      if(exists) return;  // garde-fou anti-doublon
+      S.tasks.push({id:gid('tasks'), title:tr('trTaskPrefix')+' '+t.name,
+        assignee:co.id, status:'todo', createdAt:Date.now(), autoTrainingId:t.id});
+      changed=true;
+    });
+  });
+  return changed;
+}
+// Rafraîchit les vues liées aux tâches après une synchro
+function refreshTaskViews(){
+  if(typeof rTodo==='function') rTodo();
+  if(document.getElementById('tasks-ov')?.classList.contains('open')&&typeof rTasksFull==='function') rTasksFull();
+}
 function rCoaches(){
   const q=(document.getElementById('psearch')?.value||'').toLowerCase();
   let cl=[...S.coaches].sort((a,b)=>a.lastName.localeCompare(b.lastName));
@@ -4116,13 +4339,21 @@ function rCoaches(){
   if(!cl.length){ document.getElementById('p-list').innerHTML='<div class="empty"><div class="empty-ic">&#128227;</div><p>'+(q?tr('noPlayerFound'):tr('noCoachYet'))+'</p></div>'; return; }
   document.getElementById('p-list').innerHTML=cl.map(co=>{
     const roleTxt=co.role?tr('role_'+co.role):'';
+    const prog=coachTrainingProgress(co);
+    const progColor=prog.done===prog.total?'#22C55E':(prog.done?'#F59E0B':'var(--red)');
+    const progBadge='<span style="font-size:10px;font-weight:700;color:#fff;background:'+progColor+';border-radius:20px;padding:1px 7px;margin-left:6px">\u{1F393} '+prog.done+'/'+prog.total+'</span>';
     const cavatar=co.photo?
       '<div class="pnum" style="background-image:url(\''+co.photo+'\');background-size:cover;background-position:center"></div>':
       '<div class="pnum" style="background:var(--mg)">'+esc((co.firstName[0]||'')+(co.lastName[0]||''))+'</div>';
+    // Détail : formations restantes (par thème) + complémentaires
+    const m=coachTrainingMap(co);
+    const missingGroups=catalogByTheme().map(g=>({theme:g.theme, items:g.items.filter(t=>!m[t.id])})).filter(g=>g.items.length);
+    const nbMissing=missingGroups.reduce((a,g)=>a+g.items.length,0);
+    const extras=co.extraTrainings||[];
     return '<div class="pc" onclick="togCD('+co.id+')">'+
       cavatar+
       '<div class="pinfo"><div class="pname">'+esc(co.firstName)+' '+esc(co.lastName)+'</div>'+
-      '<div class="pmeta">'+roleTxt+'</div></div>'+
+      '<div class="pmeta">'+roleTxt+progBadge+'</div></div>'+
       '<span style="color:var(--mut);font-size:14px">&rsaquo;</span></div>'+
       '<div id="cd-'+co.id+'" class="dbox">'+
         '<div style="display:flex;gap:8px;margin-bottom:8px">'+
@@ -4131,7 +4362,20 @@ function rCoaches(){
         '<div style="font-size:12px;color:var(--mut);line-height:1.8">'+
           (co.phone?'<div>&#128222; '+esc(co.phone)+'</div>':'')+
           (co.email?'<div>&#9993; '+esc(co.email)+'</div>':'')+
-          (co.licenseNo?'<div>&#127380; '+tr('licenseLbl')+' '+esc(co.licenseNo)+'</div>':'')+'</div></div>';
+          (co.licenseNo?'<div>&#127380; '+tr('licenseLbl')+' '+esc(co.licenseNo)+'</div>':'')+'</div>'+
+        // Formations restant à faire, groupées par thème + création de tâches
+        (nbMissing
+          ? '<div style="margin-top:8px;font-size:11.5px"><div style="font-weight:700;color:#B45309;margin-bottom:3px">\u26A0\uFE0F '+tr('trRemaining').replace('{n}',nbMissing)+'</div>'+
+            missingGroups.map(g=>'<div style="color:var(--mg);font-weight:700;margin-top:4px">'+esc(themeLabel(g.theme))+'</div>'+
+              '<div style="color:var(--mut);line-height:1.6">'+g.items.map(t=>'\u2022 '+esc(t.name)).join('<br>')+'</div>').join('')+
+            '<div style="font-size:10.5px;color:var(--mut);font-style:italic;margin-top:6px">'+tr('trTasksAutoNote')+'</div></div>'
+          : '<div style="margin-top:8px;font-size:11.5px;font-weight:700;color:#1B5E20">\u2705 '+tr('trAllDone')+'</div>')+
+        // Formations complémentaires
+        (extras.length
+          ? '<div style="margin-top:8px;font-size:11.5px"><div style="font-weight:700;color:var(--mg);margin-bottom:3px">\u{1F393} '+tr('trExtraTitle')+'</div>'+
+            '<div style="color:var(--mut);line-height:1.6">'+extras.map(x=>'\u2022 '+esc(x.name)).join('<br>')+'</div></div>'
+          : '')+
+      '</div>';
   }).join('');
 }
 function togCD(id){ const el=document.getElementById('cd-'+id); if(el) el.style.display=el.style.display!=='block'?'block':'none'; }
@@ -4155,9 +4399,14 @@ function openCF(eid){
     '<div class="frow"><div class="fg"><label class="fl">'+tr('phoneLbl')+'</label><input class="fi" id="cf-tel" value="'+esc(co?.phone||'')+'"></div>'+
     '<div class="fg"><label class="fl">'+tr('emailLbl')+'</label><input class="fi" id="cf-em" value="'+esc(co?.email||'')+'"></div></div>'+
     '<div class="fg"><label class="fl">'+tr('licenseLbl')+'</label><input class="fi" id="cf-lic" value="'+esc(co?.licenseNo||'')+'"></div>'+
+    '<div id="cf-trainings"></div>'+
     '<div style="display:flex;gap:8px"><button class="btn btn-mg btn-w" onclick="saveC('+(eid||'null')+')">'+(co?tr('btnSave'):tr('btnAdd'))+'</button>'+
     '<button class="btn btn-out" onclick="document.getElementById(\'pf-con\').innerHTML=\'\'">'+tr('btnCancel')+'</button></div></div>';
   document.getElementById('pf-con').scrollIntoView({behavior:'smooth'});
+  // Copie de travail des formations (validée seulement à l'enregistrement)
+  _cfTrainings={...coachTrainingMap(co||{})};
+  _cfExtras=(co?.extraTrainings||[]).map(x=>({...x}));
+  rCFTrainings();
 }
 function saveC(eid){
   const fn=document.getElementById('cf-fn').value.trim(),ln=document.getElementById('cf-ln').value.trim();
@@ -4165,10 +4414,13 @@ function saveC(eid){
   const d={firstName:fn,lastName:ln,role:document.getElementById('cf-role').value,
     phone:document.getElementById('cf-tel').value.trim(),email:document.getElementById('cf-em').value.trim(),
     licenseNo:document.getElementById('cf-lic').value.trim(),
+    trainings:{..._cfTrainings},
+    extraTrainings:_cfExtras.map(x=>({...x})),
     photo:(_pfPhotoData!==undefined?_pfPhotoData:_pfPhotoOrig)};
   if(eid){const i=S.coaches.findIndex(x=>x.id===eid);if(i>=0)S.coaches[i]={...S.coaches[i],...d};toast(tr('toastCoachUpdated'));}
   else{S.coaches.push({id:gid('coaches'),...d});toast(tr('toastCoachAdded'));}
-  save();document.getElementById('pf-con').innerHTML='';rCoaches();
+  syncTrainingTasks(); // les tâches suivent automatiquement les formations
+  save();document.getElementById('pf-con').innerHTML='';rCoaches();refreshTaskViews();
 }
 let _cfmYes=null;
 function confirmBox(msg,onYes,yesLabel){
@@ -6564,6 +6816,129 @@ function importDispatch(type){
   };
   inp.click();
 }
+// ═══════════════════════════════════════════
+// DÉTECTION DES DOUBLONS À L'IMPORT
+// Modes : 'update' (met à jour l'existant), 'skip' (ignore les doublons),
+//         'add' (ajoute quand même — crée volontairement un doublon)
+// ═══════════════════════════════════════════
+let _importMode='update'; // défaut : mise à jour, le plus sûr pour une réimportation
+// Deux fiches désignent-elles la même personne ?
+// On accepte DEUX indices : la licence (fiable) OU le prénom+nom.
+// Il suffit qu'un des deux corresponde — sinon une fiche déjà saisie avec licence
+// ne serait pas reconnue face à un CSV sans licence (et inversement).
+function personMatches(a, b){
+  const la=(a.licenseNo||'').trim().toLowerCase(), lb=(b.licenseNo||'').trim().toLowerCase();
+  if(la && lb && la===lb) return true;
+  const na=normalizeName(a.firstName||'')+'|'+normalizeName(a.lastName||'');
+  const nb=normalizeName(b.firstName||'')+'|'+normalizeName(b.lastName||'');
+  return na!=='|' && na===nb;
+}
+// Clé de regroupement (pour repérer les doublons À L'INTÉRIEUR du fichier importé)
+function personKey(p){
+  const lic=(p.licenseNo||'').trim();
+  if(lic) return 'lic:'+lic.toLowerCase();
+  return 'name:'+normalizeName(p.firstName||'')+'|'+normalizeName(p.lastName||'');
+}
+// Clé de comparaison d'une séance : date + type (+ adversaire ou nom du tournoi)
+function sessionKey(s){
+  const base=(s.date||'')+'|'+(s.type||'');
+  if(s.type==='Match') return base+'|'+normalizeName(s.opponent||'');
+  if(s.type==='Tournoi') return base+'|'+normalizeName(s.name||'');
+  return base;
+}
+// Retrouve l'enregistrement existant correspondant (ou null)
+function importFindExisting(type, item){
+  if(type==='players') return (S.players||[]).find(p=>personMatches(p, item))||null;
+  if(type==='coaches') return (S.coaches||[]).find(c=>personMatches(c, item))||null;
+  if(item&&item._kind==='session') return (S.sessions||[]).find(s=>sessionKey(s)===sessionKey(item))||null;
+  return null;
+}
+// Fusion « douce » : une cellule vide du CSV n'écrase JAMAIS une valeur déjà saisie
+function mergeNonEmpty(target, src){
+  Object.keys(src).forEach(k=>{
+    if(k==='id'||k.charAt(0)==='_') return; // on ne touche ni à l'id ni aux champs techniques
+    const v=src[k];
+    if(v===''||v===null||v===undefined) return; // vide → on garde l'existant
+    target[k]=v;
+  });
+  return target;
+}
+// Annote les lignes analysées : _dupId = id de l'enregistrement existant correspondant
+function importMarkDuplicates(type, parsed){
+  const seen=new Map(); // doublons À L'INTÉRIEUR du fichier importé
+  parsed.forEach(item=>{
+    const ex=importFindExisting(type, item);
+    item._dupId=ex?ex.id:null;
+    const k=(type==='players'||type==='coaches')?personKey(item):(item._kind==='session'?sessionKey(item):null);
+    if(k){ item._dupInFile=seen.has(k); seen.set(k,true); }
+  });
+  return parsed;
+}
+function importCounts(parsed){
+  const existing=parsed.filter(p=>p._dupId).length;
+  return {total:parsed.length, existing, fresh:parsed.length-existing};
+}
+function setImportMode(m){ _importMode=m; if(_importPreview&&_importPreview.linked) showImportPreviewLinked(); else showImportPreview(); }
+// Bandeau de choix du mode, affiché seulement s'il y a des doublons
+function importModeSelector(counts){
+  if(!counts.existing) return '';
+  const opt=(m,lbl,desc)=>'<button onclick="setImportMode(\''+m+'\')" style="flex:1;text-align:left;padding:8px 10px;border-radius:8px;cursor:pointer;'+
+    'border:1.5px solid '+(_importMode===m?'var(--mg)':'var(--brd)')+';background:'+(_importMode===m?'var(--lg)':'#fff')+'">'+
+    '<div style="font-size:12px;font-weight:700;color:'+(_importMode===m?'var(--dk)':'var(--text)')+'">'+lbl+'</div>'+
+    '<div style="font-size:10px;color:var(--mut);line-height:1.3">'+desc+'</div></button>';
+  return '<div style="background:#FEF3E0;border-radius:8px;padding:10px;margin-bottom:12px">'+
+    '<div style="font-size:12px;font-weight:700;color:#B45309;margin-bottom:8px">\u26A0\uFE0F '+
+      tr('impDupFound').replace('{n}',counts.existing)+'</div>'+
+    '<div style="display:flex;flex-direction:column;gap:6px">'+
+      opt('update',tr('impModeUpdate'),tr('impModeUpdateDesc'))+
+      opt('skip',tr('impModeSkip'),tr('impModeSkipDesc'))+
+      opt('add',tr('impModeAdd'),tr('impModeAddDesc'))+
+    '</div></div>';
+}
+// ═══════════════════════════════════════════
+// LECTURE SOUPLE DES DATES À L'IMPORT
+// L'app stocke les dates en AAAA-MM-JJ (format du champ <input type="date">).
+// Mais un fichier Excel/CSV contient souvent JJ/MM/AAAA — et Excel reformate même
+// les dates AAAA-MM-JJ à l'ouverture. On accepte donc plusieurs écritures.
+// Retourne 'AAAA-MM-JJ' ou '' si la date est illisible.
+// ═══════════════════════════════════════════
+function parseDateFlexible(v){
+  if(v===null||v===undefined) return '';
+  let s=String(v).trim();
+  if(!s) return '';
+  // Numéro de série Excel (ex. 43321) — époque 1899-12-30
+  if(/^\d{5}$/.test(s)){
+    const d=new Date(Date.UTC(1899,11,30)+parseInt(s,10)*86400000);
+    return isNaN(d)?'':d.toISOString().slice(0,10);
+  }
+  // Déjà en AAAA-MM-JJ (éventuellement avec une heure)
+  let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if(m) return isoDateParts(m[1],m[2],m[3]);
+  // AAAA/MM/JJ
+  m=s.match(/^(\d{4})[\/.](\d{1,2})[\/.](\d{1,2})$/);
+  if(m) return isoDateParts(m[1],m[2],m[3]);
+  // JJ/MM/AAAA — séparateurs / - . et année sur 2 ou 4 chiffres
+  m=s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2}|\d{4})$/);
+  if(m){
+    let a=parseInt(m[1],10), b=parseInt(m[2],10);
+    let year=m[3].length===2?(parseInt(m[3],10)<=68?2000+parseInt(m[3],10):1900+parseInt(m[3],10)):parseInt(m[3],10);
+    // Format européen par défaut (JJ/MM). On bascule en MM/JJ seulement si c'est
+    // la seule lecture possible (1er nombre > 12), ex. saisie américaine.
+    let day=a, month=b;
+    if(a>12 && b<=12){ day=a; month=b; }
+    else if(a<=12 && b>12){ day=b; month=a; }
+    return isoDateParts(year, month, day);
+  }
+  return '';
+}
+// Assemble et VALIDE une date (rejette 31/02, mois 13, etc.)
+function isoDateParts(y, mo, d){
+  const Y=parseInt(y,10), M=parseInt(mo,10), D=parseInt(d,10);
+  if(!Y||!M||!D||M<1||M>12||D<1||D>31) return '';
+  const dt=new Date(Date.UTC(Y,M-1,D));
+  if(dt.getUTCFullYear()!==Y||dt.getUTCMonth()!==M-1||dt.getUTCDate()!==D) return ''; // date inexistante
+  return Y+'-'+String(M).padStart(2,'0')+'-'+String(D).padStart(2,'0');
+}
 function importParse(type, text){
   const rows=parseCSV(text);
   if(rows.length<2){ toast(tr('impEmpty')); return; }
@@ -6581,7 +6956,7 @@ function importParse(type, text){
       parsed.push({
         number:parseInt(r[0])||null,
         firstName:fn, lastName:ln,
-        dob:(r[3]||'').trim(),
+        dob:parseDateFlexible(r[3]),
         licenseNo:(r[4]||'').trim(),
         position:revLookup((r[5]||'').trim(), POSITIONS, 'pos_')||'',
         parent:(r[6]||'').trim(), phone:(r[7]||'').trim(),
@@ -6604,7 +6979,8 @@ function importParse(type, text){
     });
   }
 
-  _importPreview={type, parsed, errors};
+  _importPreview={type, parsed:importMarkDuplicates(type, parsed), errors};
+  _importMode='update';
   showImportPreview();
 }
 
@@ -6615,11 +6991,14 @@ function showImportPreview(){
   const typeLbl=type==='players'?tr('csvPlayers'):type==='coaches'?tr('csvCoaches'):type;
   let html='<div style="font-size:15px;font-weight:800;margin-bottom:4px">'+tr('impPreviewTitle')+'</div>'+
     '<div style="font-size:12px;color:var(--mut);margin-bottom:12px">'+typeLbl+'</div>';
-  // Résumé
+  // Résumé : nouveaux / déjà présents / erreurs
+  const cnt=importCounts(parsed);
   html+='<div style="display:flex;gap:8px;margin-bottom:12px">'+
-    '<div style="flex:1;background:#E8F5E9;border-radius:8px;padding:10px;text-align:center"><div style="font-size:22px;font-weight:800;color:#1B5E20">'+parsed.length+'</div><div style="font-size:11px;color:#1B5E20">'+tr('impToAdd')+'</div></div>'+
+    '<div style="flex:1;background:#E8F5E9;border-radius:8px;padding:10px;text-align:center"><div style="font-size:22px;font-weight:800;color:#1B5E20">'+cnt.fresh+'</div><div style="font-size:11px;color:#1B5E20">'+tr('impNew')+'</div></div>'+
+    (cnt.existing?'<div style="flex:1;background:#FEF3E0;border-radius:8px;padding:10px;text-align:center"><div style="font-size:22px;font-weight:800;color:#B45309">'+cnt.existing+'</div><div style="font-size:11px;color:#B45309">'+tr('impExisting')+'</div></div>':'')+
     (errors.length?'<div style="flex:1;background:#FEECEC;border-radius:8px;padding:10px;text-align:center"><div style="font-size:22px;font-weight:800;color:#B71C1C">'+errors.length+'</div><div style="font-size:11px;color:#B71C1C">'+tr('impErrors')+'</div></div>':'')+
     '</div>';
+  html+=importModeSelector(cnt);
   // Erreurs
   if(errors.length){
     html+='<div style="font-size:11px;color:#B71C1C;background:#FEECEC;border-radius:8px;padding:8px 10px;margin-bottom:10px;max-height:80px;overflow-y:auto">'+
@@ -6633,14 +7012,15 @@ function showImportPreview(){
     parsed.slice(0,8).forEach(p=>{
       const sub=type==='players'?[p.number?'#'+p.number:'',p.position?posLabel(p.position):'',p.licenseNo].filter(Boolean).join(' · ')
         :[p.role?tr('role_'+p.role):'',p.licenseNo].filter(Boolean).join(' · ');
-      html+='<div style="padding:6px 10px;border-bottom:1px solid var(--brd);font-size:12px"><b>'+esc(p.firstName)+' '+esc(p.lastName)+'</b>'+(sub?' <span style="color:var(--mut)">— '+esc(sub)+'</span>':'')+'</div>';
+      const tag=p._dupId?'<span style="font-size:9.5px;font-weight:700;color:#B45309;background:#FEF3E0;border-radius:10px;padding:1px 6px;margin-left:6px">'+tr('impExistsTag')+'</span>':'';
+      html+='<div style="padding:6px 10px;border-bottom:1px solid var(--brd);font-size:12px"><b>'+esc(p.firstName)+' '+esc(p.lastName)+'</b>'+(sub?' <span style="color:var(--mut)">— '+esc(sub)+'</span>':'')+tag+'</div>';
     });
     if(parsed.length>8) html+='<div style="padding:6px 10px;font-size:11px;color:var(--mut)">+ '+(parsed.length-8)+' '+tr('impMore')+'</div>';
     html+='</div>';
   }
   // Boutons
   html+='<div style="display:flex;gap:8px;margin-top:14px">'+
-    (parsed.length?'<button class="btn btn-mg btn-w" onclick="applyImport()">'+tr('impConfirm').replace('{n}',parsed.length)+'</button>':'')+
+    (parsed.length?'<button class="btn btn-mg btn-w" onclick="applyImport()">'+tr('impConfirm').replace('{n}',(_importMode==='skip'?cnt.fresh:cnt.total))+'</button>':'')+
     '<button class="btn btn-out'+(parsed.length?'':' btn-w')+'" onclick="closeImport()">'+tr('btnCancel')+'</button>'+
     '</div>';
   body.innerHTML=html;
@@ -6652,18 +7032,34 @@ function closeImport(){ document.getElementById('imp-ov').classList.remove('open
 function applyImport(){
   if(!_importPreview||!_importPreview.parsed.length){ closeImport(); return; }
   const {type, parsed}=_importPreview;
-  let n=0;
-  if(type==='players'){
-    parsed.forEach(p=>{ S.players.push({id:gid('players'), photo:null, ...p}); n++; });
-  } else if(type==='coaches'){
-    parsed.forEach(co=>{ S.coaches.push({id:gid('coaches'), ...co}); n++; });
-  }
+  let added=0, updated=0, skipped=0;
+  const list=type==='players'?S.players:S.coaches;
+  parsed.forEach(item=>{
+    const {_dupId,_dupInFile,...clean}=item;
+    const existing=_dupId?list.find(x=>x.id===_dupId):null;
+    if(existing && _importMode!=='add'){
+      if(_importMode==='skip'){ skipped++; return; }
+      mergeNonEmpty(existing, clean); updated++; // 'update'
+      return;
+    }
+    if(type==='players') S.players.push({id:gid('players'), photo:null, ...clean});
+    else S.coaches.push({id:gid('coaches'), ...clean});
+    added++;
+  });
   save();
   closeImport();
-  toast(tr('impDone').replace('{n}',n));
+  toast(importResultMsg(added, updated, skipped));
   // Rafraîchir la vue concernée
   if(type==='players'){ if(typeof rPlayers==='function'){ st('players'); setRosterTab('players'); rPlayers(); } }
   else if(type==='coaches'){ st('players'); setRosterTab('coaches'); rCoaches(); }
+}
+// Message de résultat lisible : "3 ajoutés · 2 mis à jour · 1 ignoré"
+function importResultMsg(added, updated, skipped){
+  const parts=[];
+  if(added) parts.push(added+' '+tr('impResAdded'));
+  if(updated) parts.push(updated+' '+tr('impResUpdated'));
+  if(skipped) parts.push(skipped+' '+tr('impResSkipped'));
+  return parts.length?('\u2705 '+parts.join(' \u00b7 ')):tr('impResNothing');
 }
 
 // ═══ Correspondance joueur : licence > nom+prénom ═══
@@ -6696,9 +7092,10 @@ function importParseLinked(type, text){
   if(type==='training'){
     // Date;Jour;Thème;Skills;Règles;Positifs;Améliorations;Notes  → 1 ligne = 1 séance
     dataRows.forEach((r,i)=>{
-      const date=(r[0]||'').trim();
-      if(!date){ if(r.some(x=>x.trim())) errors.push({line:i+2,msg:tr('impNeedDate')}); return; }
-      if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){ errors.push({line:i+2,msg:tr('impBadDate')+' '+date}); return; }
+      const raw=(r[0]||'').trim();
+      if(!raw){ if(r.some(x=>x.trim())) errors.push({line:i+2,msg:tr('impNeedDate')}); return; }
+      const date=parseDateFlexible(raw);
+      if(!date){ errors.push({line:i+2,msg:tr('impBadDate')+' '+raw}); return; }
       parsed.push({ _kind:'session', date, type:'Entraînement', theme:(r[2]||'').trim(), skills:(r[3]||'').trim(), rules:(r[4]||'').trim(), positives:(r[5]||'').trim(), improvements:(r[6]||'').trim(), notes:(r[7]||'').trim() });
     });
   } else if(type==='matches'){
@@ -6706,8 +7103,10 @@ function importParseLinked(type, text){
     // Date;Adversaire;Lieu;Score RCL;Score Adv;Joueur;N°;Rôle;Temps(s);...
     const byMatch={};
     dataRows.forEach((r,i)=>{
-      const date=(r[0]||'').trim(), opp=(r[1]||'').trim();
-      if(!date){ if(r.some(x=>x.trim())) errors.push({line:i+2,msg:tr('impNeedDate')}); return; }
+      const rawD=(r[0]||'').trim(), opp=(r[1]||'').trim();
+      if(!rawD){ if(r.some(x=>x.trim())) errors.push({line:i+2,msg:tr('impNeedDate')}); return; }
+      const date=parseDateFlexible(rawD);
+      if(!date){ errors.push({line:i+2,msg:tr('impBadDate')+' '+rawD}); return; }
       const key=date+'|'+opp;
       if(!byMatch[key]) byMatch[key]={ _kind:'session', date, type:'Match', opponent:opp, venue:revVenue(r[2]), scoreRCL:parseInt(r[3])||0, scoreAdv:parseInt(r[4])||0, squad:[], subs:[], chrono:{base:0,started:null} };
       // Joueur de la ligne (optionnel)
@@ -6723,8 +7122,10 @@ function importParseLinked(type, text){
     // Tournoi;Date;Equipe A;Equipe B;Score A;Score B;Joué  → regrouper par Tournoi+Date
     const byTour={};
     dataRows.forEach((r,i)=>{
-      const name=(r[0]||'').trim(), date=(r[1]||'').trim();
-      if(!date){ if(r.some(x=>x.trim())) errors.push({line:i+2,msg:tr('impNeedDate')}); return; }
+      const name=(r[0]||'').trim(), rawD=(r[1]||'').trim();
+      if(!rawD){ if(r.some(x=>x.trim())) errors.push({line:i+2,msg:tr('impNeedDate')}); return; }
+      const date=parseDateFlexible(rawD);
+      if(!date){ errors.push({line:i+2,msg:tr('impBadDate')+' '+rawD}); return; }
       const key=name+'|'+date;
       if(!byTour[key]) byTour[key]={ _kind:'session', date, type:'Tournoi', name, rclTeams:['RCL'], tableaux:['Tableau A'], teams:['RCL'], matches:[], coachAssign:{}, preSelect:{} };
       const ha=(r[2]||'').trim(), aw=(r[3]||'').trim();
@@ -6737,9 +7138,11 @@ function importParseLinked(type, text){
   } else if(type==='attendance'){
     // Date;Type;N° Joueur;Prénom;Nom;Statut → rattacher à séance existante + joueur existant
     dataRows.forEach((r,i)=>{
-      const date=(r[0]||'').trim(), typeLbl=(r[1]||'').trim();
+      const rawD=(r[0]||'').trim(), typeLbl=(r[1]||'').trim();
       const fn=(r[2]||'').trim(), ln=(r[3]||'').trim(), stat=revStatus(r[4]);
-      if(!date){ if(r.some(x=>x.trim())) errors.push({line:i+2,msg:tr('impNeedDate')}); return; }
+      if(!rawD){ if(r.some(x=>x.trim())) errors.push({line:i+2,msg:tr('impNeedDate')}); return; }
+      const date=parseDateFlexible(rawD);
+      if(!date){ errors.push({line:i+2,msg:tr('impBadDate')+' '+rawD}); return; }
       if(!stat){ errors.push({line:i+2,msg:tr('impBadStatus')+' '+(r[5]||'')}); return; }
       const player=findPlayerRef(fn,ln);
       if(!player){ errors.push({line:i+2,msg:tr('impNoPlayer')+' '+fn+' '+ln}); return; }
@@ -6751,8 +7154,10 @@ function importParseLinked(type, text){
     // Date;N° Joueur;Prénom;Nom;<critères...>;Moyenne;Commentaire
     const critCount=CRIT.length;
     dataRows.forEach((r,i)=>{
-      const date=(r[0]||'').trim(), fn=(r[1]||'').trim(), ln=(r[2]||'').trim();
-      if(!date){ if(r.some(x=>x.trim())) errors.push({line:i+2,msg:tr('impNeedDate')}); return; }
+      const rawD=(r[0]||'').trim(), fn=(r[1]||'').trim(), ln=(r[2]||'').trim();
+      if(!rawD){ if(r.some(x=>x.trim())) errors.push({line:i+2,msg:tr('impNeedDate')}); return; }
+      const date=parseDateFlexible(rawD);
+      if(!date){ errors.push({line:i+2,msg:tr('impBadDate')+' '+rawD}); return; }
       const player=findPlayerRef(fn,ln);
       if(!player){ errors.push({line:i+2,msg:tr('impNoPlayer')+' '+fn+' '+ln}); return; }
       if(player.ambiguous){ errors.push({line:i+2,msg:tr('impDupPlayer')+' '+fn+' '+ln}); return; }
@@ -6762,7 +7167,8 @@ function importParseLinked(type, text){
     });
   }
 
-  _importPreview={type, parsed, errors, linked:true};
+  _importPreview={type, parsed:importMarkDuplicates(type, parsed), errors, linked:true};
+  _importMode='update';
   showImportPreviewLinked();
 }
 
@@ -6773,10 +7179,13 @@ function showImportPreviewLinked(){
   const typeLbl=tr(lblMap[type]||type);
   let html='<div style="font-size:15px;font-weight:800;margin-bottom:4px">'+tr('impPreviewTitle')+'</div>'+
     '<div style="font-size:12px;color:var(--mut);margin-bottom:12px">'+typeLbl+'</div>';
+  const cntL=importCounts(parsed);
   html+='<div style="display:flex;gap:8px;margin-bottom:12px">'+
-    '<div style="flex:1;background:#E8F5E9;border-radius:8px;padding:10px;text-align:center"><div style="font-size:22px;font-weight:800;color:#1B5E20">'+parsed.length+'</div><div style="font-size:11px;color:#1B5E20">'+tr('impToAdd')+'</div></div>'+
+    '<div style="flex:1;background:#E8F5E9;border-radius:8px;padding:10px;text-align:center"><div style="font-size:22px;font-weight:800;color:#1B5E20">'+cntL.fresh+'</div><div style="font-size:11px;color:#1B5E20">'+tr('impNew')+'</div></div>'+
+    (cntL.existing?'<div style="flex:1;background:#FEF3E0;border-radius:8px;padding:10px;text-align:center"><div style="font-size:22px;font-weight:800;color:#B45309">'+cntL.existing+'</div><div style="font-size:11px;color:#B45309">'+tr('impExisting')+'</div></div>':'')+
     (errors.length?'<div style="flex:1;background:#FEECEC;border-radius:8px;padding:10px;text-align:center"><div style="font-size:22px;font-weight:800;color:#B71C1C">'+errors.length+'</div><div style="font-size:11px;color:#B71C1C">'+tr('impErrors')+'</div></div>':'')+
     '</div>';
+  html+=importModeSelector(cntL);
   if(errors.length){
     html+='<div style="font-size:11px;color:#B71C1C;background:#FEECEC;border-radius:8px;padding:8px 10px;margin-bottom:10px;max-height:100px;overflow-y:auto">'+
       errors.slice(0,10).map(e=>tr('impLine')+' '+e.line+' : '+e.msg).join('<br>')+(errors.length>10?'<br>…':'')+'</div>';
@@ -6797,7 +7206,7 @@ function showImportPreviewLinked(){
     html+='</div>';
   }
   html+='<div style="display:flex;gap:8px;margin-top:14px">'+
-    (parsed.length?'<button class="btn btn-mg btn-w" onclick="applyImportLinked()">'+tr('impConfirm').replace('{n}',parsed.length)+'</button>':'')+
+    (parsed.length?'<button class="btn btn-mg btn-w" onclick="applyImportLinked()">'+tr('impConfirm').replace('{n}',(_importMode==='skip'?cntL.fresh:cntL.total))+'</button>':'')+
     '<button class="btn btn-out'+(parsed.length?'':' btn-w')+'" onclick="closeImport()">'+tr('btnCancel')+'</button></div>';
   body.innerHTML=html; ov.classList.add('open');
 }
@@ -6805,34 +7214,40 @@ function showImportPreviewLinked(){
 function applyImportLinked(){
   if(!_importPreview||!_importPreview.parsed.length){ closeImport(); return; }
   const {type, parsed}=_importPreview;
-  let n=0;
+  let added=0, updated=0, skipped=0;
   parsed.forEach(item=>{
     if(item._kind==='session'){
-      const {_kind,_squadRefs,...clean}=item;
+      const {_kind,_squadRefs,_dupId,_dupInFile,...clean}=item;
       // Rattacher les joueurs du squad (match) aux joueurs existants
       if(item.type==='Match'&&_squadRefs){
         clean.squad=_squadRefs.map(ref=>{ const pl=findPlayerRef(ref.fn,ref.ln); return (pl&&!pl.ambiguous)?{pid:pl.id,role:ref.role,tTotal:ref.tTotal,tIn:null}:null; }).filter(Boolean);
       }
-      S.sessions.push({id:gid('sessions'), ...clean}); n++;
+      const existing=_dupId?S.sessions.find(s=>s.id===_dupId):null;
+      if(existing && _importMode!=='add'){
+        if(_importMode==='skip'){ skipped++; return; }
+        mergeNonEmpty(existing, clean); updated++; // 'update'
+        return;
+      }
+      S.sessions.push({id:gid('sessions'), ...clean}); added++;
     } else if(item._kind==='attendance'){
       // Trouver/créer la séance de cette date+type
       let sess=findSessionByDateType(item.date,item.sType);
       if(!sess){ sess={id:gid('sessions'),date:item.date,type:item.sType}; S.sessions.push(sess); }
-      // Éviter doublon présence
+      // Présence déjà enregistrée → mise à jour du statut (jamais de doublon)
       const exists=S.attendance.find(a=>a.sessionId===sess.id&&a.playerId===item.playerId);
-      if(exists) exists.status=item.status;
-      else { S.attendance.push({id:gid('attendance'),sessionId:sess.id,playerId:item.playerId,status:item.status}); n++; }
+      if(exists){ exists.status=item.status; updated++; }
+      else { S.attendance.push({id:gid('attendance'),sessionId:sess.id,playerId:item.playerId,status:item.status}); added++; }
     } else if(item._kind==='evaluation'){
       let sess=findSessionByDateType(item.date,'Entraînement');
       if(!sess){ sess={id:gid('sessions'),date:item.date,type:'Entraînement'}; S.sessions.push(sess); }
-      const {_kind,_pname,date,...evData}=item;
+      const {_kind,_pname,date,_dupId,_dupInFile,...evData}=item;
       const exists=S.evaluations.find(e=>e.sessionId===sess.id&&e.playerId===item.playerId);
-      if(exists){ Object.assign(exists,evData); }
-      else { S.evaluations.push({id:gid('evaluations'),sessionId:sess.id,...evData}); n++; }
+      if(exists){ Object.assign(exists,evData); updated++; }
+      else { S.evaluations.push({id:gid('evaluations'),sessionId:sess.id,...evData}); added++; }
     }
   });
   save(); closeImport();
-  toast(tr('impDone').replace('{n}',n));
+  toast(importResultMsg(added, updated, skipped));
   if(type==='training'||type==='matches'||type==='tournaments'){ st('sessions'); if(typeof rSessions==='function') rSessions(); }
   else if(type==='attendance'){ st('attendance'); if(typeof rAtt==='function') rAtt(); }
   else if(type==='evaluations'){ st('eval'); if(typeof rEval==='function') rEval(); }
@@ -6894,6 +7309,8 @@ window.addEventListener('DOMContentLoaded',()=>{
   const _vm=voteMode();
   if(_vm){ voteRenderPage(_vm); return; }
   load();
+  // Aligner les tâches auto sur les formations (idempotent : rien ne bouge si tout est à jour)
+  if(syncTrainingTasks()) save();
   // Nom de l'app centralisé (bandeau + onglet navigateur)
   const _an=document.getElementById('app-name-hdr'); if(_an) _an.textContent=APP_NAME;
   const _at=document.getElementById('app-title'); if(_at) _at.textContent=APP_NAME;
